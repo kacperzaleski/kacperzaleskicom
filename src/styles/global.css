@@ -23,8 +23,11 @@
   --radius: 14px;
 }
 
+/* Dark theme: follows the system unless the visitor picked one with the
+   header toggle (stored as data-theme on <html>, see BaseLayout). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #141013;
     --surface: #1f171d;
     --text: #f3ecf0;
@@ -34,6 +37,22 @@
     --accent-soft: #3a1830;
     --accent-contrast: #141013;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141013;
+  --surface: #1f171d;
+  --text: #f3ecf0;
+  --muted: #b3a3ad;
+  --border: #3a2c36;
+  --accent: #ff5cc0;
+  --accent-soft: #3a1830;
+  --accent-contrast: #141013;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 *,
