@@ -1,0 +1,31 @@
+# Triggers a Cloudflare Pages production build so build-time data
+# (e.g. the projects page synced from GitHub) stays fresh.
+#
+# Triggers:
+#   - daily schedule
+#   - repository_dispatch (type "project-updated") sent from a project repo
+#   - manual run from the Actions tab
+name: Rebuild site
+
+on:
+  schedule:
+    - cron: "17 4 * * *" # 04:17 UTC daily
+  repository_dispatch:
+    types: [project-updated]
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Call Cloudflare Pages deploy hook
+        env:
+          HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::CF_DEPLOY_HOOK secret is not set"
+            exit 1
+          fi
+          curl -fsS -X POST "$HOOK" -o /dev/null
+          echo "Deploy hook called (trigger: ${{ github.event_name }})"
