@@ -174,6 +174,23 @@ function germanTexts(value: unknown): Project["de"] {
   return Object.keys(out).length ? out : undefined;
 }
 
+/**
+ * A repo's "Website" field counts as its live demo, unless it just points back
+ * to this site (e.g. https://kacperzaleski.com/projects). Demos on
+ * <slug>.kacperzaleski.com subdomains still count.
+ */
+function demoFromHomepage(homepage: string | null): string | undefined {
+  if (!homepage) return undefined;
+  try {
+    const host = new URL(homepage).hostname;
+    if (host === "kacperzaleski.com" || host === "www.kacperzaleski.com")
+      return undefined;
+    return homepage;
+  } catch {
+    return undefined;
+  }
+}
+
 function removeImages(slug: string) {
   for (const f of readdirSync(IMG_DIR)) {
     if (f.replace(extname(f), "") === slug) rmSync(join(IMG_DIR, f));
@@ -217,7 +234,7 @@ async function syncOne(
       tags: facts.topics ?? [],
       status: "wip",
       featured: false,
-      demo_url: facts.homepage || undefined,
+      demo_url: demoFromHomepage(facts.homepage),
     };
     const v = pick(base, portfolio, override.data);
 
