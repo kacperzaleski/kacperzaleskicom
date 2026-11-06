@@ -12,7 +12,7 @@
 
 projects:
   - repo: kacperzaleski/graphrag-explorer
-    slug: graphrag-explorer
+    slug: bankgraphexplorer
   - repo: kacperzaleski/practical-work-CT2PET
     slug: ct2pet
   - repo: kacperzaleski/depixelationAI

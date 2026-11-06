@@ -11,7 +11,8 @@ links:
     url: https://kacperzaleski.com
   - label: github.com/kacperzaleski
     url: https://github.com/kacperzaleski
-  # TODO(kacper): LinkedIn URL if you want it listed.
+  - label: linkedin.com/in/kacper-zaleski
+    url: https://www.linkedin.com/in/kacper-zaleski/
 
 profile: >-
   AI graduate (JKU Linz) with hands-on experience in deep learning, data

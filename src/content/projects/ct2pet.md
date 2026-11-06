@@ -1,7 +1,7 @@
 ---
 title: CT-to-PET translation with diffusion
 tagline: Synthesising PET scans from CT with a Brownian-bridge diffusion model (CPDM) on the autoPET dataset
-status: wip # TODO(kacper): confirm
+status: archived # finished; shown as "Completed"
 featured: true
 tags: [PyTorch, diffusion models, medical imaging, MONAI]
 screenshot: thesis/figures/qualitative_short.png

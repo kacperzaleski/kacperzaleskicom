@@ -1,12 +1,12 @@
 ---
 # Local overrides (highest priority). Fields follow the portfolio.yml contract.
-title: GraphRAG Explorer
+title: BankGraphExplorer
 tagline: Who owns whom in Austrian banking, as a knowledge graph you can explore and ask questions
-status: wip # TODO(kacper): confirm (live | demo | wip | archived)
+status: archived # finished; shown as "Completed"
 featured: true
 tags: [knowledge graph, GraphRAG, LLM, Neo4j, FastAPI, React]
 screenshot: slides/img/2_bawag.png
-screenshot_alt: GraphRAG Explorer showing BAWAG Group's ownership graph, with an entity card listing owners, stakes and source quotes
+screenshot_alt: BankGraphExplorer showing BAWAG Group's ownership graph, with an entity card listing owners, stakes and source quotes
 ---
 
 22 Wikipedia articles about Austrian banks, their owners and regulators, turned

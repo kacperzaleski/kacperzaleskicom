@@ -1,11 +1,11 @@
 [
   {
-    "slug": "graphrag-explorer",
+    "slug": "bankgraphexplorer",
     "repo": "kacperzaleski/graphrag-explorer",
     "repoUrl": "https://github.com/kacperzaleski/graphrag-explorer",
-    "title": "GraphRAG Explorer",
+    "title": "BankGraphExplorer",
     "tagline": "Who owns whom in Austrian banking, as a knowledge graph you can explore and ask questions",
-    "status": "wip",
+    "status": "archived",
     "featured": true,
     "tags": [
       "knowledge graph",
@@ -15,9 +15,9 @@
       "FastAPI",
       "React"
     ],
-    "screenshot": "../assets/projects/graphrag-explorer.png",
+    "screenshot": "../assets/projects/bankgraphexplorer.png",
     "screenshotFit": "cover",
-    "screenshotAlt": "GraphRAG Explorer showing BAWAG Group's ownership graph, with an entity card listing owners, stakes and source quotes",
+    "screenshotAlt": "BankGraphExplorer showing BAWAG Group's ownership graph, with an entity card listing owners, stakes and source quotes",
     "language": "Python",
     "stars": 0,
     "pushedAt": "2026-11-06T12:04:09Z",
@@ -29,7 +29,7 @@
     "repoUrl": "https://github.com/kacperzaleski/practical-work-CT2PET",
     "title": "CT-to-PET translation with diffusion",
     "tagline": "Synthesising PET scans from CT with a Brownian-bridge diffusion model (CPDM) on the autoPET dataset",
-    "status": "wip",
+    "status": "archived",
     "featured": true,
     "tags": [
       "PyTorch",
