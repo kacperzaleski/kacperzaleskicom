@@ -1,0 +1,124 @@
+/* Typography for Markdown blog posts (.prose-content wraps <Content />). */
+
+.prose-content {
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.prose-content > :first-child {
+  margin-top: 0;
+}
+
+.prose-content :where(p, ul, ol, blockquote, pre, table, figure) {
+  margin: 0 0 1.4em;
+}
+
+.prose-content :where(h2, h3, h4) {
+  margin: 2.2em 0 0.6em;
+  scroll-margin-top: 1rem;
+}
+
+.prose-content h2 {
+  font-size: 1.65rem;
+}
+
+.prose-content h3 {
+  font-size: 1.3rem;
+}
+
+.prose-content h4 {
+  font-size: 1.1rem;
+  font-family: var(--font-sans);
+}
+
+.prose-content :where(ul, ol) {
+  padding-left: 1.4em;
+}
+
+.prose-content li + li {
+  margin-top: 0.35em;
+}
+
+.prose-content li::marker {
+  color: var(--accent);
+}
+
+.prose-content blockquote {
+  padding: 0.25em 0 0.25em 1.2em;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.prose-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.prose-content hr {
+  border: 0;
+  height: 12px;
+  margin: 3em auto;
+  width: 6rem;
+  background: var(--accent);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M2 6 C 10 0, 18 0, 26 6 S 42 12, 50 6 S 66 0, 74 6 S 88 12, 94 6' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+.prose-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border-radius: 10px;
+}
+
+.prose-content :not(pre) > code {
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.88em;
+}
+
+.prose-content pre {
+  padding: 1rem 1.15rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose-content :where(th, td) {
+  padding: 0.5em 0.75em;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.prose-content th {
+  font-weight: 650;
+}
+
+/* Shiki code highlighting: light theme inline, dark theme via CSS variables,
+   following the site's light/dark switch. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .astro-code,
+  :root:not([data-theme="light"]) .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}

@@ -8,6 +8,7 @@ export const NAV = [
   { href: "/", key: "nav.home" },
   { href: "/cv", key: "nav.cv" },
   { href: "/projects", key: "nav.projects" },
+  { href: "/blog", key: "nav.blog" },
   { href: "/contact", key: "nav.contact" },
 ] as const;
 

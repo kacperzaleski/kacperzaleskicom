@@ -10,8 +10,10 @@ import { publicPath } from "~/lib/path";
 
 interface Props {
   lang: Lang;
+  /** Where each language links to, if not "this page in that language". */
+  links?: Partial<Record<Lang, string>> | undefined;
 }
-const { lang } = Astro.props;
+const { lang, links } = Astro.props;
 const t = useTranslations(lang);
 const path = publicPath(Astro.url.pathname);
 ---
@@ -19,7 +21,7 @@ const path = publicPath(Astro.url.pathname);
 <nav class="lang-switch" aria-label={t("nav.language")}>
   {LANGS.map((l) => (
     <a
-      href={localize(path, l)}
+      href={links?.[l] ?? localize(path, l)}
       hreflang={l}
       lang={l}
       aria-current={l === lang ? "true" : undefined}
