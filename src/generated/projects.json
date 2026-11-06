@@ -21,7 +21,12 @@
     "language": "Python",
     "stars": 0,
     "pushedAt": "2026-11-06T12:04:09Z",
-    "body": "22 Wikipedia articles about Austrian banks, their owners and regulators, turned\ninto a knowledge graph by an LLM. Every fact links back to the sentence it came\nfrom. Hybrid graph + vector RAG answers questions with citations, and a\nreproducible evaluation compares graph mode against plain vector RAG."
+    "body": "22 Wikipedia articles about Austrian banks, their owners and regulators, turned\ninto a knowledge graph by an LLM. Every fact links back to the sentence it came\nfrom. Hybrid graph + vector RAG answers questions with citations, and a\nreproducible evaluation compares graph mode against plain vector RAG.",
+    "de": {
+      "tagline": "Wer besitzt wen im österreichischen Bankwesen: ein Knowledge Graph zum Erkunden und Befragen",
+      "body": "22 Wikipedia-Artikel über österreichische Banken, ihre Eigentümer und Aufsichtsbehörden, von einem LLM in einen Knowledge Graph umgewandelt. Jede Aussage verweist auf den Satz, aus dem sie stammt. Hybrides Graph- und Vektor-RAG beantwortet Fragen mit Quellenangaben, und eine reproduzierbare Evaluation vergleicht den Graph-Modus mit reinem Vektor-RAG.",
+      "screenshotAlt": "BankGraphExplorer mit dem Eigentümer-Graphen der BAWAG Group und einer Entitätskarte mit Eigentümern, Anteilen und Quellzitaten"
+    }
   },
   {
     "slug": "ct2pet",
@@ -43,7 +48,13 @@
     "language": "Python",
     "stars": 0,
     "pushedAt": "2026-07-27T11:01:44Z",
-    "body": "Reimplementation of the WACV 2025 paper \"CT to PET Translation: A Large-scale\nDataset and Domain-Knowledge-Guided Diffusion Approach\" on the autoPET challenge\ndata: attention-map UNet, VQGAN and Brownian-bridge diffusion in latent space.\nBasis of my bachelor's thesis at JKU."
+    "body": "Reimplementation of the WACV 2025 paper \"CT to PET Translation: A Large-scale\nDataset and Domain-Knowledge-Guided Diffusion Approach\" on the autoPET challenge\ndata: attention-map UNet, VQGAN and Brownian-bridge diffusion in latent space.\nBasis of my bachelor's thesis at JKU.",
+    "de": {
+      "title": "CT-zu-PET-Übersetzung mit Diffusion",
+      "tagline": "Synthese von PET-Aufnahmen aus CT mit einem Brownian-Bridge-Diffusionsmodell (CPDM) auf autoPET",
+      "body": "Reimplementierung des WACV-2025-Papers \"CT to PET Translation: A Large-scale Dataset and Domain-Knowledge-Guided Diffusion Approach\" auf den Daten der autoPET-Challenge: Attention-Map-UNet, VQGAN und Brownian-Bridge-Diffusion im latenten Raum. Grundlage meiner Bachelorarbeit an der JKU.",
+      "screenshotAlt": "Raster aus CT-Schnitten neben PET-Vorhersagen mehrerer Modelle (Posterior Mean, CPDM, Concat-Diffusion, Concat-Flow, PMRF) und der echten PET-Aufnahme"
+    }
   },
   {
     "slug": "depixelation-ai",
@@ -61,6 +72,10 @@
     "screenshotFit": "cover",
     "language": "Python",
     "stars": 0,
-    "pushedAt": "2023-07-13T17:05:10Z"
+    "pushedAt": "2023-07-13T17:05:10Z",
+    "de": {
+      "title": "Depixelation-CNN",
+      "tagline": "Ein Convolutional Neural Network in PyTorch, das verpixelte Bildbereiche rekonstruiert"
+    }
   }
 ]

@@ -7,5 +7,9 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file", inlineStylesheets: "always" },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: { defaultLocale: "en", locales: { en: "en", de: "de" } },
+    }),
+  ],
 });

@@ -1,9 +1,20 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import { cv, formatSpan } from "~/lib/cv";
+import { cvFor, formatSpan } from "~/lib/cv";
+import {
+  localeStaticPaths,
+  localize,
+  useTranslations,
+  type Lang,
+} from "~/i18n";
+
+export const getStaticPaths = localeStaticPaths;
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const cv = cvFor(lang);
 ---
 
-<BaseLayout title="CV" description={`CV of ${cv.name}, ${cv.role}.`}>
+<BaseLayout title={t("cv.title")} description={t("cv.description")}>
   <article class="container cv">
     <header class="cv-head">
       <div>
@@ -19,22 +30,26 @@ import { cv, formatSpan } from "~/lib/cv";
           ))}
         </p>
       </div>
-      <a class="button primary no-print" href="/cv.pdf" download>
-        Download PDF
+      <a
+        class="button primary no-print"
+        href={localize("/cv.pdf", lang)}
+        download
+      >
+        {t("cv.download")}
       </a>
     </header>
 
     <section aria-labelledby="profile">
-      <h2 id="profile">Profile</h2>
+      <h2 id="profile">{t("cv.profile")}</h2>
       <p class="profile">{cv.profile}</p>
     </section>
 
     <section aria-labelledby="experience">
-      <h2 id="experience">Experience</h2>
+      <h2 id="experience">{t("cv.experience")}</h2>
       <ol class="entries">
         {cv.experience.map((e) => (
           <li>
-            <p class="when">{formatSpan(e.start, e.end)}</p>
+            <p class="when">{formatSpan(e.start, e.end, lang)}</p>
             <div>
               <h3>
                 {e.title}, <span class="org">{e.org}</span>
@@ -48,11 +63,11 @@ import { cv, formatSpan } from "~/lib/cv";
     </section>
 
     <section aria-labelledby="education">
-      <h2 id="education">Education</h2>
+      <h2 id="education">{t("cv.education")}</h2>
       <ol class="entries">
         {cv.education.map((e) => (
           <li>
-            <p class="when">{formatSpan(e.start, e.end)}</p>
+            <p class="when">{formatSpan(e.start, e.end, lang)}</p>
             <div>
               <h3>
                 {e.degree}, <span class="org">{e.institution}</span>
@@ -66,7 +81,7 @@ import { cv, formatSpan } from "~/lib/cv";
     </section>
 
     <section aria-labelledby="skills">
-      <h2 id="skills">Technical skills</h2>
+      <h2 id="skills">{t("cv.skills")}</h2>
       <dl class="pairs">
         {cv.skills.map((s) => (
           <div>
@@ -78,7 +93,7 @@ import { cv, formatSpan } from "~/lib/cv";
     </section>
 
     <section aria-labelledby="languages">
-      <h2 id="languages">Languages</h2>
+      <h2 id="languages">{t("cv.languages")}</h2>
       <dl class="pairs">
         {cv.languages.map((l) => (
           <div>
@@ -90,7 +105,7 @@ import { cv, formatSpan } from "~/lib/cv";
     </section>
 
     <section aria-labelledby="interests">
-      <h2 id="interests">Interests</h2>
+      <h2 id="interests">{t("cv.interests")}</h2>
       <dl class="pairs">
         {cv.interests.map((i) => (
           <div>

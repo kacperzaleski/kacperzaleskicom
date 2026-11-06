@@ -2,6 +2,7 @@ import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import PDFDocument from "pdfkit";
 import { type CV, formatSpan } from "~/lib/cv";
+import { type Lang, useTranslations } from "~/i18n";
 // Inlined by Vite as a data URL (pdfkit accepts those), so no path issues after bundling.
 import LOGO from "~/assets/brand/kz-logo-256.png?inline";
 
@@ -35,7 +36,7 @@ const C = {
 };
 
 const BODY = 9.2;
-const PAGE = { margin: 40, dateCol: 92, gap: 14 };
+const PAGE = { margin: 40, dateCol: 102, gap: 14 };
 
 type Doc = InstanceType<typeof PDFDocument>;
 
@@ -103,17 +104,21 @@ function wave(doc: Doc, x: number, y: number, w: number) {
     .restore();
 }
 
-export function renderCvPdf(cv: CV): Promise<Uint8Array<ArrayBuffer>> {
+export function renderCvPdf(
+  cv: CV,
+  lang: Lang = "en",
+): Promise<Uint8Array<ArrayBuffer>> {
+  const t = useTranslations(lang);
   const doc = new PDFDocument({
     size: "A4",
     margin: PAGE.margin,
     info: {
-      Title: `${cv.name} – CV`,
+      Title: `${cv.name} – ${t("cv.title")}`,
       Author: cv.name,
       Subject: cv.role,
     },
     pdfVersion: "1.7",
-    lang: "en",
+    lang,
     displayTitle: true,
   });
   for (const [name, data] of Object.entries(FONTS))
@@ -271,7 +276,7 @@ export function renderCvPdf(cv: CV): Promise<Uint8Array<ArrayBuffer>> {
     );
   };
 
-  section("Profile");
+  section(t("cv.profile"));
   doc
     .font("body")
     .fontSize(BODY)
@@ -282,32 +287,40 @@ export function renderCvPdf(cv: CV): Promise<Uint8Array<ArrayBuffer>> {
     });
   doc.moveDown(0.3);
 
-  section("Experience");
+  section(t("cv.experience"));
   for (const e of cv.experience)
-    entry(formatSpan(e.start, e.end), e.title, e.org, e.location, e.summary);
+    entry(
+      formatSpan(e.start, e.end, lang),
+      e.title,
+      e.org,
+      e.location,
+      e.summary,
+    );
 
-  section("Education");
+  section(t("cv.education"));
   for (const e of cv.education)
     entry(
-      formatSpan(e.start, e.end),
+      formatSpan(e.start, e.end, lang),
       e.degree,
       e.institution,
       e.location,
       e.details,
     );
 
-  section("Technical skills");
+  section(t("cv.skills"));
   for (const s of cv.skills) pair(s.group, s.items.join(", "));
 
-  section("Languages");
+  section(t("cv.languages"));
   pair(
     "",
     cv.languages
-      .map((l) => `${l.name} (${l.level.toLowerCase()})`)
+      .map(
+        (l) => `${l.name} (${lang === "en" ? l.level.toLowerCase() : l.level})`,
+      )
       .join("  ·  "),
   );
 
-  section("Interests");
+  section(t("cv.interests"));
   for (const i of cv.interests) pair(i.label, i.text);
 
   doc.end();

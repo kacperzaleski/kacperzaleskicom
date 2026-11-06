@@ -33,6 +33,14 @@ const projects = defineCollection({
       stars: z.number(),
       pushedAt: z.string().optional(),
       body: z.string().optional(),
+      de: z
+        .object({
+          title: z.string().optional(),
+          tagline: z.string().optional(),
+          body: z.string().optional(),
+          screenshotAlt: z.string().optional(),
+        })
+        .optional(),
     }),
 });
 

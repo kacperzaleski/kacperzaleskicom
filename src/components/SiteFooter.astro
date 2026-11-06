@@ -2,6 +2,12 @@
 import WaveEdge from "~/components/WaveEdge.astro";
 import KzLogo from "~/assets/brand/kz-logo.svg";
 import { LEGAL_NAV, SITE } from "~/consts";
+import { useTranslations, type Lang } from "~/i18n";
+
+interface Props {
+  lang: Lang;
+}
+const t = useTranslations(Astro.props.lang);
 
 const year = new Date().getFullYear();
 ---
@@ -13,10 +19,10 @@ const year = new Date().getFullYear();
       <p class="sign">
         <KzLogo class="logo" width={32} height={32} aria-hidden="true" />
         <span>
-          © {year} {SITE.title} · Vienna
+          © {year} {SITE.title} · {t("footer.city")}
         </span>
       </p>
-      <nav aria-label="Legal">
+      <nav aria-label={t("nav.legal")}>
         <ul>
           {LEGAL_NAV.map(({ href, label }) => (
             <li>

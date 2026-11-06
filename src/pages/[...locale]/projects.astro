@@ -2,6 +2,11 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import ProjectCard from "~/components/ProjectCard.astro";
+import { localeStaticPaths, useTranslations, type Lang } from "~/i18n";
+
+export const getStaticPaths = localeStaticPaths;
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
 
 // Featured first, then most recently pushed. (The content store doesn't keep
 // the JSON's order, so sort here.)
@@ -16,26 +21,21 @@ const featured = projects.filter((p) => p.featured);
 const more = projects.filter((p) => !p.featured);
 ---
 
-<BaseLayout
-  title="Projects"
-  description="Projects by Kacper Zaleski: machine learning, medical imaging, knowledge graphs."
->
+<BaseLayout title={t("projects.title")} description={t("projects.description")}>
   <section class="container intro">
-    <p class="eyebrow">Projects</p>
-    <h1>Things I've built</h1>
-    <p class="lede">
-      Research code and side projects, pulled from GitHub at build time.
-    </p>
+    <p class="eyebrow">{t("projects.title")}</p>
+    <h1>{t("projects.heading")}</h1>
+    <p class="lede">{t("projects.lede")}</p>
   </section>
 
   {featured.length > 0 && (
     <section class="container" aria-labelledby="featured-h">
       <h2 id="featured-h" class="visually-hidden">
-        Featured projects
+        {t("projects.featured")}
       </h2>
       <div class="grid featured">
         {featured.map((p, i) => (
-          <ProjectCard project={p} large eager={i === 0} />
+          <ProjectCard project={p} lang={lang} large eager={i === 0} />
         ))}
       </div>
     </section>
@@ -43,10 +43,10 @@ const more = projects.filter((p) => !p.featured);
 
   {more.length > 0 && (
     <section class="container more" aria-labelledby="more-h">
-      <h2 id="more-h">More projects</h2>
+      <h2 id="more-h">{t("projects.more")}</h2>
       <div class="grid">
         {more.map((p) => (
-          <ProjectCard project={p} />
+          <ProjectCard project={p} lang={lang} />
         ))}
       </div>
     </section>

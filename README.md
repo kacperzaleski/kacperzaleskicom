@@ -32,7 +32,9 @@ src/
   generated/projects.json      Written by the sync script (committed)
   assets/projects/             Project screenshots (written by sync, committed)
   assets/brand/                Logo source files
-  pages/                       One file per URL (cv.astro → /cv)
+  pages/[...locale]/           Pages in EN (/cv) and DE (/de/cv), one file each
+  pages/impressum, datenschutz German-only legal pages
+  i18n/index.ts                UI strings (en/de) and language/path helpers
   pages/og/[slug].png.ts       Social preview images, built at build time
   lib/cv.ts, lib/cv-pdf.ts     CV loader/validation and PDF renderer
   lib/og.ts                    OG image list + renderer
@@ -44,9 +46,27 @@ scripts/sync-projects.ts       Build-time GitHub sync
 public/                        Copied as-is (favicons, manifest)
 ```
 
+## Languages (English / German)
+
+- English lives at `/…`, German at `/de/…`. Every page in
+  `src/pages/[...locale]/` is built twice. The EN | DE switch in the header
+  links to the same page in the other language; `hreflang` links are in each
+  page and in the sitemap.
+- **UI text** (nav, buttons, headings): `src/i18n/index.ts`, one entry per
+  language. A missing German string falls back to English.
+- **CV**: any text in `cv.yml` is either a plain string (same in both) or
+  `{ en: …, de: … }`. Quote values containing commas, or use the block form
+  (`en: …` / `de: …` on separate lines); the build fails on a stray key.
+- **Projects**: add a `de:` block to `src/content/projects/<slug>.md` with
+  `title`, `tagline`, `body`, `screenshot_alt` (all optional).
+- `/impressum` and `/datenschutz` are German only, on purpose.
+- New page: put it in `src/pages/[...locale]/`, add
+  `export const getStaticPaths = localeStaticPaths;` and read `lang` from
+  `Astro.props` (see any existing page).
+
 ## Edit the CV
 
-Edit `src/data/cv.yml`. Both `/cv` and `/cv.pdf` are generated from it, so
+Edit `src/data/cv.yml`. `/cv`, `/de/cv`, `/cv.pdf` and `/de/cv.pdf` are all generated from it, so
 they can't drift apart. The build fails with a clear message if a date is
 malformed or a field is missing.
 
@@ -86,8 +106,10 @@ malformed or a field is missing.
 
 **Priority:** GitHub repo facts < `portfolio.yml` < local `.md` override.
 
-**If GitHub is down** during a build, each project falls back to its entry in
-the committed `projects.json`. The build never fails because of GitHub.
+**If GitHub is down or rate-limited** during a build, each project falls back
+to its entry in the committed `projects.json`, with your local override files
+still applied on top. The build never fails because of GitHub. Local builds:
+`GITHUB_TOKEN=$(gh auth token) pnpm build` avoids the rate limit.
 
 ## Add a blog post (or any new section)
 
@@ -110,9 +132,10 @@ refactor:
    ```
 
 2. Write posts as `src/content/blog/<slug>.md` with that front matter.
-3. Add `src/pages/blog/index.astro` (list) and `src/pages/blog/[slug].astro`
-   (post, via `getCollection("blog")` + `render()`).
-4. Add `{ href: "/blog", label: "Blog" }` to `NAV` in `src/consts.ts`.
+3. Add `src/pages/[...locale]/blog/index.astro` (list) and a post page
+   (via `getCollection("blog")` + `render()`), following the existing pages.
+4. Add `{ href: "/blog", key: "nav.blog" }` to `NAV` in `src/consts.ts` and
+   `"nav.blog"` in both languages in `src/i18n/index.ts`.
 5. Optional: an OG image entry in `OG_PAGES` (`src/lib/og.ts`).
 
 Scouts section rule: text only or group-level. Never photos of minors,

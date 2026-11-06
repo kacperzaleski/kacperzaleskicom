@@ -1,24 +1,30 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Waves from "~/components/Waves.astro";
+import {
+  localeStaticPaths,
+  localize,
+  useTranslations,
+  type Lang,
+} from "~/i18n";
+
+export const getStaticPaths = localeStaticPaths;
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
 ---
 
 <BaseLayout>
   <section class="hero">
     <div class="container">
-      <p class="eyebrow">AI / Machine Learning Engineer</p>
+      <p class="eyebrow">{t("home.eyebrow")}</p>
       <h1>Kacper Zaleski</h1>
-      <p class="lede">
-        AI graduate from JKU Linz, now doing a Master's in Artificial
-        Intelligence. I work across model training, data engineering and
-        software engineering, from medical imaging to knowledge graphs.
-      </p>
+      <p class="lede">{t("home.lede")}</p>
       <div class="actions">
-        <a class="button primary" href="/projects">
-          See projects
+        <a class="button primary" href={localize("/projects", lang)}>
+          {t("home.ctaProjects")}
         </a>
-        <a class="button" href="/cv">
-          Read CV
+        <a class="button" href={localize("/cv", lang)}>
+          {t("home.ctaCv")}
         </a>
       </div>
     </div>

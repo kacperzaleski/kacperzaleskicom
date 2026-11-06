@@ -1,10 +1,18 @@
-# Single source of truth for the CV page (/cv) and the PDF (/cv.pdf).
+# Single source of truth for the CV pages (/cv, /de/cv) and PDFs (/cv.pdf, /de/cv.pdf).
+#
+# Any text can be a plain string (same in both languages) or translated:
+#   title: { en: Intern, de: Praktikant }
+# A missing `de` falls back to `en`.
+#
 # Dates: "YYYY" or "YYYY-MM". Omit `end` for "present".
 # Never add phone number, home address or a plain email here: this file is public.
+#
+# TODO(kacper): the German texts are Claude's translations of the English CV.
+# Please review wording (job titles, degree names) before relying on them.
 
 name: Kacper Zaleski
 role: AI / Machine Learning Engineer
-location: Vienna, Austria
+location: { en: "Vienna, Austria", de: "Wien, Österreich" }
 
 links:
   - label: kacperzaleski.com
@@ -14,95 +22,152 @@ links:
   - label: linkedin.com/in/kacper-zaleski
     url: https://www.linkedin.com/in/kacper-zaleski/
 
-profile: >-
-  AI graduate (JKU Linz) with hands-on experience in deep learning, data
-  pipelines, and full-stack development across a hospital, a bank, and
-  academic research. Comfortable moving between model training, data
-  engineering, and software engineering; currently starting a Master's in
-  Artificial Intelligence.
+profile:
+  en: >-
+    AI graduate (JKU Linz) with hands-on experience in deep learning, data
+    pipelines, and full-stack development across a hospital, a bank, and
+    academic research. Comfortable moving between model training, data
+    engineering, and software engineering; currently starting a Master's in
+    Artificial Intelligence.
+  de: >-
+    AI-Absolvent (JKU Linz) mit praktischer Erfahrung in Deep Learning,
+    Datenpipelines und Full-Stack-Entwicklung, im Krankenhausumfeld, in einer
+    Bank und in der universitären Forschung. Ich arbeite sicher zwischen
+    Modelltraining, Data Engineering und Softwareentwicklung und beginne gerade
+    das Masterstudium Artificial Intelligence.
 
 education:
   - start: "2026"
     degree: M.Sc. Artificial Intelligence
-    institution: Johannes Kepler University (JKU) Linz
+    institution:
+      en: Johannes Kepler University (JKU) Linz
+      de: Johannes Kepler Universität (JKU) Linz
   - start: "2022"
     end: "2026"
     degree: B.Sc. Artificial Intelligence
-    institution: Johannes Kepler University (JKU) Linz
-    details: >-
-      Bachelor's thesis: deep learning approaches for CT/PET medical image
-      translation, including diffusion-based generative models (Schrödinger
-      bridge, conditional denoising, paired training).
+    institution:
+      en: Johannes Kepler University (JKU) Linz
+      de: Johannes Kepler Universität (JKU) Linz
+    details:
+      en: >-
+        Bachelor's thesis: deep learning approaches for CT/PET medical image
+        translation, including diffusion-based generative models (Schrödinger
+        bridge, conditional denoising, paired training).
+      de: >-
+        Bachelorarbeit: Deep-Learning-Ansätze für die Übersetzung medizinischer
+        CT/PET-Bilder, einschließlich diffusionsbasierter generativer Modelle
+        (Schrödinger-Brücke, konditionales Denoising, gepaartes Training).
   - start: "2017"
     end: "2022"
-    degree: Diploma, Computer Science
+    degree:
+      en: Diploma, Computer Science
+      de: Reife- und Diplomprüfung, Informatik
     institution: HTL Spengergasse
-    location: Vienna
-    details: >-
-      Diploma thesis on DevOps, covering CI/CD pipelines, containerization
-      with Docker, and monitoring.
+    location: { en: Vienna, de: Wien }
+    details:
+      en: >-
+        Diploma thesis on DevOps, covering CI/CD pipelines, containerization
+        with Docker, and monitoring.
+      de: >-
+        Diplomarbeit zu DevOps: CI/CD-Pipelines, Containerisierung mit Docker
+        und Monitoring.
 
 experience:
   - start: 2024-06
     end: 2024-12
-    title: Programmer
-    org: Medical University of Vienna
-    location: Vienna
-    summary: >-
-      Curated high-dimensional intensive care data and developed a data
-      pipeline for downstream ML models.
+    title: { en: Programmer, de: Programmierer }
+    org: { en: Medical University of Vienna, de: Medizinische Universität Wien }
+    location: { en: Vienna, de: Wien }
+    summary:
+      en: >-
+        Curated high-dimensional intensive care data and developed a data
+        pipeline for downstream ML models.
+      de: >-
+        Kuratierung hochdimensionaler Intensivmedizin-Daten und Entwicklung
+        einer Datenpipeline für nachgelagerte ML-Modelle.
   - start: 2023-04
     end: 2024-04
-    title: Full-Stack Developer
+    title: { en: Full-Stack Developer, de: Full-Stack-Entwickler }
     org: Raiffeisen Bank International
-    location: Vienna
-    summary: >-
-      Developed the back- and frontend of an internal budget management
-      service; built PowerBI dashboards for international budget insights.
+    location: { en: Vienna, de: Wien }
+    summary:
+      en: >-
+        Developed the back- and frontend of an internal budget management
+        service; built PowerBI dashboards for international budget insights.
+      de: >-
+        Entwicklung von Backend und Frontend eines internen
+        Budgetverwaltungsservice; PowerBI-Dashboards für internationale
+        Budgetauswertungen.
   - start: 2021-07
     end: 2021-07
-    title: Intern
+    title: { en: Intern, de: Praktikant }
     org: Evolit Consulting GmbH
-    location: Vienna
-    summary: Built a marketing website for a new company service.
+    location: { en: Vienna, de: Wien }
+    summary:
+      en: Built a marketing website for a new company service.
+      de: Entwicklung einer Marketing-Website für ein neues Unternehmensangebot.
   - start: 2019-07
     end: 2019-07
-    title: Intern
+    title: { en: Intern, de: Praktikant }
     org: Raiffeisen Informatik Technical Services
-    location: Vienna
-    summary: >-
-      Built a new homepage, debugged SAP systems, and created SharePoint
-      workflows.
+    location: { en: Vienna, de: Wien }
+    summary:
+      en: >-
+        Built a new homepage, debugged SAP systems, and created SharePoint
+        workflows.
+      de: >-
+        Erstellung einer neuen Homepage, Fehleranalyse in SAP-Systemen und
+        Umsetzung von SharePoint-Workflows.
 
 skills:
-  - group: Languages
+  - group: { en: Languages, de: Programmiersprachen }
     items: [Python, Java (Spring), JavaScript, SQL]
   - group: Machine Learning
     items:
       - PyTorch
-      - deep learning
-      - diffusion-based generative modeling
-      - exposure to NLP, RL and computer vision
-  - group: Data
-    items: [data pipeline design, high-dimensional data curation, pandas]
+      - { en: deep learning, de: Deep Learning }
+      - {
+          en: diffusion-based generative modeling,
+          de: diffusionsbasierte generative Modelle,
+        }
+      - en: exposure to NLP, RL and computer vision
+        de: Grundkenntnisse in NLP, RL und Computer Vision
+  - group: { en: Data, de: Daten }
+    items:
+      - { en: data pipeline design, de: Design von Datenpipelines }
+      - {
+          en: high-dimensional data curation,
+          de: Kuratierung hochdimensionaler Daten,
+        }
+      - pandas
   - group: DevOps & Tools
-    items: [Docker, CI/CD, monitoring, Git]
+    items: [Docker, CI/CD, { en: monitoring, de: Monitoring }, Git]
   - group: Web & BI
-    items: [full-stack web development, PowerBI]
+    items:
+      - { en: full-stack web development, de: Full-Stack-Webentwicklung }
+      - PowerBI
 
 languages:
-  - name: German
-    level: Fluent
-  - name: English
-    level: Fluent
-  - name: Polish
-    level: Native
+  - name: { en: German, de: Deutsch }
+    level: { en: Fluent, de: Fließend }
+  - name: { en: English, de: Englisch }
+    level: { en: Fluent, de: Fließend }
+  - name: { en: Polish, de: Polnisch }
+    level: { en: Native, de: Muttersprache }
 
 interests:
-  - label: Scouting
-    text: >-
-      Active for 15 years; responsible for group website & Office 365
-      administration, youth mentoring, and external contributions to SCOREG
-      (Austrian Scout Association's national membership platform).
-  - label: Other
-    text: Skiing and outdoor activities.
+  - label: { en: Scouting, de: Pfadfinder }
+    text:
+      en: >-
+        Active for 15 years; responsible for group website & Office 365
+        administration, youth mentoring, and external contributions to SCOREG
+        (Austrian Scout Association's national membership platform).
+      de: >-
+        Seit 15 Jahren aktiv; verantwortlich für Gruppen-Website und
+        Office-365-Administration, Jugendbetreuung sowie externe Beiträge zu SCOREG (der
+        österreichweiten Mitgliederplattform der Pfadfinder und Pfadfinderinnen
+        Österreichs).
+  - label: { en: Other, de: Sonstiges }
+    text:
+      en: Skiing and outdoor activities.
+      de: Skifahren und Outdoor-Aktivitäten.

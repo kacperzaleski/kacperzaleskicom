@@ -55,6 +55,10 @@ interface Project {
   stars: number;
   pushedAt?: string | undefined;
   body?: string | undefined;
+  /** German texts from the local override's `de:` block (falls back to English). */
+  de?:
+    | Partial<Record<"title" | "tagline" | "body" | "screenshotAlt", string>>
+    | undefined;
 }
 
 const token = process.env.GITHUB_TOKEN;
@@ -118,6 +122,56 @@ function pick(...layers: Record<string, unknown>[]) {
     }
     return undefined;
   };
+}
+
+/**
+ * Offline fallback: local override files are always available, so re-apply
+ * their text fields on top of the last good entry. (A changed screenshot path
+ * can't be fetched offline; the previous image is kept.)
+ */
+function applyOverride(
+  prev: Project,
+  override: { data: Record<string, unknown>; body?: string | undefined },
+): Project {
+  const d = override.data;
+  const status = str(d["status"]);
+  const fit = str(d["screenshot_fit"]);
+  return {
+    ...prev,
+    title: str(d["title"]) ?? prev.title,
+    tagline: str(d["tagline"]) ?? prev.tagline,
+    status: STATUSES.includes(status as Status)
+      ? (status as Status)
+      : prev.status,
+    featured:
+      typeof d["featured"] === "boolean" ? d["featured"] : prev.featured,
+    tags: Array.isArray(d["tags"])
+      ? (d["tags"] as unknown[]).map(String)
+      : prev.tags,
+    demoUrl: str(d["demo_url"]) ?? prev.demoUrl,
+    screenshotFit:
+      fit === "contain" || fit === "cover" ? fit : prev.screenshotFit,
+    screenshotAlt: str(d["screenshot_alt"]) ?? prev.screenshotAlt,
+    body: override.body ?? prev.body,
+    de: germanTexts(d["de"]) ?? prev.de,
+  };
+}
+
+/** `de:` block in an override: { title, tagline, body, screenshot_alt }. */
+function germanTexts(value: unknown): Project["de"] {
+  if (!value || typeof value !== "object") return undefined;
+  const v = value as Record<string, unknown>;
+  const out: NonNullable<Project["de"]> = {};
+  for (const [from, to] of [
+    ["title", "title"],
+    ["tagline", "tagline"],
+    ["body", "body"],
+    ["screenshot_alt", "screenshotAlt"],
+  ] as const) {
+    const text = str(v[from]);
+    if (text) out[to] = text;
+  }
+  return Object.keys(out).length ? out : undefined;
 }
 
 function removeImages(slug: string) {
@@ -219,12 +273,13 @@ async function syncOne(
       stars: facts.stargazers_count,
       pushedAt: facts.pushed_at,
       body: override.body,
+      de: germanTexts(override.data["de"]),
     };
   } catch (err) {
     const reason = err instanceof Error ? err.message : String(err);
     if (previous) {
-      warn(`${slug}: ${reason}; keeping last committed data`);
-      return previous;
+      warn(`${slug}: ${reason}; using last committed data + local overrides`);
+      return applyOverride(previous, override);
     }
     throw new Error(
       `${slug}: ${reason}, and no previous data to fall back to`,
