@@ -1,0 +1,100 @@
+---
+/**
+ * Decorative field of stacked sine-wave lines, rendered to static SVG at build
+ * time (no client JS). Each line is drawn two periods wide and slid by one
+ * period with CSS, so the drift loops seamlessly. Motion is disabled under
+ * prefers-reduced-motion (see global.css).
+ */
+interface Props {
+  /** Number of wave lines. */
+  lines?: number;
+  /** Peak amplitude in viewBox units (viewBox is 1200 x height). */
+  amplitude?: number;
+  /** viewBox height. */
+  height?: number;
+  /** Whole periods across the width; must be an integer for a seamless loop. */
+  periods?: number;
+  /** Seconds for one full drift loop; 0 disables motion. */
+  duration?: number;
+  /** Deterministic variation between instances. */
+  seed?: number;
+  class?: string;
+}
+
+const {
+  lines = 9,
+  amplitude = 28,
+  height = 320,
+  periods = 2,
+  duration = 60,
+  seed = 1,
+  class: className,
+} = Astro.props;
+
+const W = 1200;
+const STEP = 16;
+
+// Small deterministic PRNG so builds are reproducible.
+let s = seed * 9301 + 49297;
+const rand = () => {
+  s = (s * 9301 + 49297) % 233280;
+  return s / 233280;
+};
+
+const paths = Array.from({ length: lines }, (_, i) => {
+  const t = lines === 1 ? 0.5 : i / (lines - 1);
+  const baseY = height * (0.18 + 0.64 * t);
+  const phase = rand() * Math.PI * 2;
+  const amp = amplitude * (0.55 + 0.45 * Math.sin(Math.PI * t) + rand() * 0.2);
+  const k = (2 * Math.PI * periods) / W;
+  // Secondary harmonic with an integer multiple keeps the loop seamless.
+  const amp2 = amp * 0.28;
+  let d = "";
+  for (let x = 0; x <= W * 2; x += STEP) {
+    const y =
+      baseY +
+      amp * Math.sin(k * x + phase + t * 1.6) +
+      amp2 * Math.sin(2 * k * x + phase * 1.7);
+    d += `${x === 0 ? "M" : "L"}${x} ${y.toFixed(1)}`;
+  }
+  return { d, opacity: (0.25 + 0.75 * Math.sin(Math.PI * t) ** 2).toFixed(2) };
+});
+---
+
+<svg
+  class:list={["waves", className]}
+  viewBox={`0 0 ${W} ${height}`}
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+  style={duration > 0 ? `--wave-duration: ${duration}s` : undefined}
+>
+  <g class:list={["drift", { still: duration === 0 }]}>
+    {paths.map(({ d, opacity }) => (
+      <path d={d} stroke-opacity={opacity} vector-effect="non-scaling-stroke" />
+    ))}
+  </g>
+</svg>
+
+<style>
+  .waves {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    color: var(--accent);
+  }
+  path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+  .drift:not(.still) {
+    animation: wave-drift var(--wave-duration, 60s) linear infinite;
+  }
+  @keyframes wave-drift {
+    to {
+      transform: translateX(-1200px);
+    }
+  }
+</style>

@@ -6,6 +6,6 @@ export default defineConfig({
   site: "https://kacperzaleski.com",
   output: "static",
   trailingSlash: "never",
-  build: { format: "file" },
+  build: { format: "file", inlineStylesheets: "always" },
   integrations: [sitemap()],
 });

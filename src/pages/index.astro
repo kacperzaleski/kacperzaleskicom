@@ -1,26 +1,60 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Waves from "~/components/Waves.astro";
 ---
 
 <BaseLayout>
-  <section class="container hero">
-    <div class="prose">
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">AI / Machine Learning Engineer</p>
       <h1>Kacper Zaleski</h1>
-      <!-- TODO(kacper): short bio / one-liner for the home page. -->
-      <p class="lede">Based in Vienna. TODO: one-line intro.</p>
-      <p>
-        See my <a href="/cv">CV</a> or browse <a href="/projects">projects</a>.
+      <p class="lede">
+        AI graduate from JKU Linz, now doing a Master's in Artificial
+        Intelligence. I work across model training, data engineering and
+        software engineering, from medical imaging to knowledge graphs.
       </p>
+      <div class="actions">
+        <a class="button primary" href="/projects">
+          See projects
+        </a>
+        <a class="button" href="/cv">
+          Read CV
+        </a>
+      </div>
+    </div>
+    <div class="hero-waves">
+      <Waves lines={12} amplitude={30} height={260} />
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .hero {
-    padding-block: clamp(3rem, 10vw, 6rem);
+    padding-top: clamp(3.5rem, 10vw, 7rem);
   }
   .lede {
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
     color: var(--muted);
+    max-width: 38rem;
+    margin: 0 0 2rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .hero-waves {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    height: clamp(150px, 22vw, 260px);
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+  .hero-waves :global(svg) {
+    height: 100%;
   }
 </style>
