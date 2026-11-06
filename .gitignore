@@ -1,0 +1,23 @@
+# deps / build
+node_modules/
+dist/
+.astro/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# local-only source material (CV exports etc.)
+/private/
+*.local.*
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# logs
+*.log
+lighthouse-*/
