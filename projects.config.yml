@@ -1,0 +1,19 @@
+# Projects shown on /projects, in no particular order (sorting: featured
+# first, then most recently pushed).
+#
+# Each entry:
+#   repo: owner/name        (required)
+#   slug: url-safe-id       (optional; defaults to the repo name, lowercased)
+#
+# Card content comes from, lowest to highest priority:
+#   1. GitHub repo facts (description, language, stars, last push)
+#   2. portfolio.yml in the repo's default branch
+#   3. src/content/projects/<slug>.md front matter (local overrides)
+
+projects:
+  - repo: kacperzaleski/graphrag-explorer
+    slug: graphrag-explorer
+  - repo: kacperzaleski/practical-work-CT2PET
+    slug: ct2pet
+  - repo: kacperzaleski/depixelationAI
+    slug: depixelation-ai

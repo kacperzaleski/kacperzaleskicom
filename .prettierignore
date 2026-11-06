@@ -2,3 +2,4 @@ dist/
 .astro/
 pnpm-lock.yaml
 CLAUDE.md
+src/generated/
