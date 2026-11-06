@@ -1,0 +1,39 @@
+---
+/** A filled wavy edge used to start a tinted band (e.g. the footer). */
+interface Props {
+  /** Colour of the band below the edge (CSS value). */
+  fill?: string;
+  height?: number;
+}
+const { fill = "var(--surface)", height = 40 } = Astro.props;
+
+const W = 1200;
+let d = `M0 ${height}`;
+for (let x = 0; x <= W; x += 10) {
+  const y =
+    height * 0.5 +
+    height * 0.28 * Math.sin((x / W) * Math.PI * 4) +
+    height * 0.12 * Math.sin((x / W) * Math.PI * 10 + 1);
+  d += ` L${x} ${y.toFixed(1)}`;
+}
+d += ` L${W} ${height} Z`;
+---
+
+<svg
+  class="wave-edge"
+  viewBox={`0 0 ${W} ${height}`}
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+  style={`height: ${height}px`}
+>
+  <path d={d} fill={fill}></path>
+</svg>
+
+<style>
+  .wave-edge {
+    display: block;
+    width: 100%;
+    margin-bottom: -1px;
+  }
+</style>

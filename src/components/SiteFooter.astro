@@ -1,51 +1,60 @@
 ---
+import WaveEdge from "~/components/WaveEdge.astro";
 import { LEGAL_NAV, SITE } from "~/consts";
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container row">
-    <p>
-      © {year} {SITE.title}
-    </p>
-    <nav aria-label="Legal">
-      <ul>
-        {LEGAL_NAV.map(({ href, label }) => (
-          <li>
-            <a href={href}>{label}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+  <WaveEdge />
+  <div class="band">
+    <div class="container row">
+      <p>
+        © {year} {SITE.title} · Vienna
+      </p>
+      <nav aria-label="Legal">
+        <ul>
+          {LEGAL_NAV.map(({ href, label }) => (
+            <li>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--border);
+    margin-top: 3rem;
     color: var(--muted);
-    font-size: 0.9rem;
-    margin-top: 4rem;
+    font-size: 0.92rem;
+  }
+  .band {
+    background: var(--surface);
   }
   .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 0.5rem 1.5rem;
-    padding-block: 1.5rem;
+    padding-block: 1.25rem 2rem;
   }
   p {
     margin: 0;
   }
   ul {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
   a {
     color: var(--muted);
+  }
+  a:hover {
+    color: var(--accent);
   }
 </style>
