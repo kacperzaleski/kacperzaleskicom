@@ -1,0 +1,28 @@
+---
+/**
+ * Renders the contact email without ever putting the full address in the
+ * HTML: a tiny inline script assembles the mailto link; without JS a
+ * readable "[at]" form is shown.
+ */
+import { EMAIL } from "~/consts";
+
+const readable = `${EMAIL.user} [at] ${EMAIL.domain.replace(/\./g, " [dot] ")}`;
+// Reversed parts so the address isn't greppable in the page source either.
+const parts = [EMAIL.domain, EMAIL.user].map((s) => [...s].reverse().join(""));
+---
+
+<span class="email" data-p={JSON.stringify(parts)}>
+  {readable}
+</span>
+
+<script is:inline>
+  document.querySelectorAll("span.email[data-p]").forEach((el) => {
+    const [d, u] = JSON.parse(el.dataset.p).map((s) =>
+      [...s].reverse().join(""),
+    );
+    const a = document.createElement("a");
+    a.href = "mailto:" + u + "@" + d;
+    a.textContent = u + "@" + d;
+    el.replaceWith(a);
+  });
+</script>
