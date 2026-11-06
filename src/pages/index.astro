@@ -1,0 +1,26 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="container hero">
+    <div class="prose">
+      <h1>Kacper Zaleski</h1>
+      <!-- TODO(kacper): short bio / one-liner for the home page. -->
+      <p class="lede">Based in Vienna. TODO: one-line intro.</p>
+      <p>
+        See my <a href="/cv">CV</a> or browse <a href="/projects">projects</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 10vw, 6rem);
+  }
+  .lede {
+    font-size: 1.25rem;
+    color: var(--muted);
+  }
+</style>
