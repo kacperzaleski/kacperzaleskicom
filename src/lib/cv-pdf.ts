@@ -2,6 +2,8 @@ import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import PDFDocument from "pdfkit";
 import { type CV, formatSpan } from "~/lib/cv";
+// Inlined by Vite as a data URL (pdfkit accepts those), so no path issues after bundling.
+import LOGO from "~/assets/brand/kz-logo-256.png?inline";
 
 /**
  * Renders the CV to an A4 PDF from the same data as /cv.
@@ -14,6 +16,7 @@ const font = (pkg: string, file: string) =>
 
 // fontsource ships per-subset files; "latin" covers U+0000-00FF plus common
 // punctuation (– ’ …). assertGlyphs() fails the build if text needs more.
+
 const FONTS = {
   body: font("noto-sans", "noto-sans-latin-400-normal.woff"),
   bodyItalic: font("noto-sans", "noto-sans-latin-400-italic.woff"),
@@ -134,7 +137,12 @@ export function renderCvPdf(cv: CV): Promise<Uint8Array<ArrayBuffer>> {
     if (doc.y + h > bottom()) doc.addPage();
   };
 
-  // Header
+  // Header (logo top-right, opposite the name)
+  const logoSize = 44;
+  doc.image(LOGO, left + width - logoSize, PAGE.margin, {
+    width: logoSize,
+    height: logoSize,
+  });
   doc
     .font("display")
     .fontSize(28)
