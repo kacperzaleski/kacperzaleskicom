@@ -25,8 +25,7 @@ export const OG_PAGES: OgPage[] = [
     path: "/",
     eyebrow: "AI / Machine Learning Engineer",
     title: "Kacper Zaleski",
-    subtitle:
-      "Model training, data engineering and software engineering. Vienna.",
+    subtitle: "Model training and software engineering. Vienna.",
   },
   {
     slug: "cv",
@@ -68,7 +67,7 @@ export const OG_PAGES: OgPage[] = [
     path: "/de",
     eyebrow: "AI / Machine Learning Engineer",
     title: "Kacper Zaleski",
-    subtitle: "Modelltraining, Data Engineering und Softwareentwicklung. Wien.",
+    subtitle: "Modelltraining und Softwareentwicklung. Wien.",
   },
   {
     slug: "de-cv",

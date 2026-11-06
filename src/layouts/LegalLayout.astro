@@ -4,11 +4,11 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 interface Props {
   title: string;
   description: string;
-  /** Show the "draft, not reviewed" notice. Remove once Kacper has checked the text. */
+  /** Show a "draft, not reviewed" notice (use while a text is being reworked). */
   draft?: boolean;
 }
 
-const { title, description, draft = true } = Astro.props;
+const { title, description, draft = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} lang="de">
