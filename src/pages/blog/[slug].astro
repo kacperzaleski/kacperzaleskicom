@@ -4,6 +4,7 @@ import { render } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { getPosts, readingTime, formatDate, type Post } from "~/lib/blog";
 import { localize, useTranslations } from "~/i18n";
+import { blogPostingSchema } from "~/lib/seo";
 import "~/styles/prose.css";
 
 export async function getStaticPaths() {
@@ -16,6 +17,8 @@ const { title, subtitle, date, updated, lang, tags, cover, coverAlt, draft } =
   post.data;
 const t = useTranslations(lang);
 const { Content } = await render(post);
+const url = new URL(`/blog/${post.id}`, Astro.site);
+const ogImage = new URL(`/og/blog-${post.id}.png`, Astro.site);
 ---
 
 <BaseLayout
@@ -25,6 +28,7 @@ const { Content } = await render(post);
   noindex={draft}
   langLinks={{ en: "/blog", de: "/de/blog" }}
   ogImagePath={`/og/blog-${post.id}.png`}
+  jsonLd={[blogPostingSchema(post, url, ogImage)]}
 >
   <article class="container post">
     <a class="back" href={localize("/blog", lang)}>

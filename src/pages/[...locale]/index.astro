@@ -7,13 +7,14 @@ import {
   useTranslations,
   type Lang,
 } from "~/i18n";
+import { personSchema, websiteSchema } from "~/lib/seo";
 
 export const getStaticPaths = localeStaticPaths;
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 ---
 
-<BaseLayout>
+<BaseLayout jsonLd={[websiteSchema(lang), personSchema(lang)]}>
   <section class="hero">
     <div class="container">
       <p class="eyebrow">{t("home.eyebrow")}</p>

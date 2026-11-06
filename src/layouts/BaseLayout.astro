@@ -5,6 +5,7 @@ import SiteFooter from "~/components/SiteFooter.astro";
 import { SITE } from "~/consts";
 import { ogImageFor } from "~/lib/og";
 import { publicPath } from "~/lib/path";
+import { jsonLdScript } from "~/lib/seo";
 import {
   LANGS,
   type Lang,
@@ -26,17 +27,25 @@ interface Props {
   langLinks?: Partial<Record<Lang, string>>;
   /** Override the social preview image path (e.g. per blog post). */
   ogImagePath?: string;
+  /** schema.org structured data for this page (see src/lib/seo.ts). */
+  jsonLd?: Record<string, unknown>[];
 }
 
 const path = publicPath(Astro.url.pathname);
-const { lang = langFromPath(path), langLinks, ogImagePath } = Astro.props;
+const {
+  lang = langFromPath(path),
+  langLinks,
+  ogImagePath,
+  jsonLd,
+} = Astro.props;
 const t = useTranslations(lang);
 const {
   title,
   description = t("site.description"),
   noindex = false,
 } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+// Home has no title prop and uses the full keyword title.
+const pageTitle = title ? `${title} · ${SITE.title}` : t("site.title");
 const canonical = new URL(path, Astro.site);
 const ogImage = new URL(ogImagePath ?? ogImageFor(path, lang), Astro.site);
 // hreflang alternates for pages that exist in both languages.
@@ -97,7 +106,16 @@ const alternates = isSingleLanguage(basePath(path))
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={pageTitle} />
     <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Kacper Zaleski – Blog"
+      href="/blog/rss.xml"
+    />
     {noindex && <meta name="robots" content="noindex" />}
+    {jsonLd && jsonLd.length > 0 && (
+      <script type="application/ld+json" set:html={jsonLdScript(jsonLd)} />
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">

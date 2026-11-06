@@ -7,14 +7,20 @@ import {
   useTranslations,
   type Lang,
 } from "~/i18n";
+import { profilePageSchema } from "~/lib/seo";
 
 export const getStaticPaths = localeStaticPaths;
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 const cv = cvFor(lang);
+const url = new URL(localize("/cv", lang), Astro.site);
 ---
 
-<BaseLayout title={t("cv.title")} description={t("cv.description")}>
+<BaseLayout
+  title={t("cv.title")}
+  description={t("cv.description")}
+  jsonLd={[profilePageSchema(lang, url)]}
+>
   <article class="container cv">
     <header class="cv-head">
       <div>

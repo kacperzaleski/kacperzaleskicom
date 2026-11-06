@@ -60,7 +60,8 @@ const ui = {
     "nav.projects": "Projects",
     "nav.blog": "Blog",
     "blog.title": "Blog",
-    "blog.description": "Writing by Kacper Zaleski.",
+    "blog.description":
+      "Blog by Kacper Zaleski: notes on machine learning, projects and what he's working on.",
     "blog.heading": "Blog",
     "blog.lede":
       "Notes on machine learning, projects and whatever else I'm working on.",
@@ -79,15 +80,17 @@ const ui = {
     "theme.toDark": "Switch to dark mode",
     "theme.toLight": "Switch to light mode",
     "footer.city": "Vienna",
+    "site.title": "Kacper Zaleski – AI / Machine Learning Engineer in Vienna",
     "site.description":
-      "Kacper Zaleski, AI / machine learning engineer in Vienna: CV and projects.",
+      "Kacper Zaleski is an AI / machine learning engineer in Vienna and M.Sc. AI student at JKU Linz: deep learning, medical imaging, knowledge graphs.",
     "home.eyebrow": "AI / Machine Learning Engineer",
     "home.lede":
       "AI graduate from JKU Linz, now doing a Master's in Artificial Intelligence. I work across model training and software engineering, from medical imaging to knowledge graphs.",
     "home.ctaProjects": "See projects",
     "home.ctaCv": "Read CV",
     "cv.title": "CV",
-    "cv.description": "CV of Kacper Zaleski, AI / Machine Learning Engineer.",
+    "cv.description":
+      "CV of Kacper Zaleski, AI / machine learning engineer in Vienna: experience at MedUni Vienna and Raiffeisen Bank International, JKU Linz, skills. PDF included.",
     "cv.download": "Download PDF",
     "cv.profile": "Profile",
     "cv.experience": "Experience",
@@ -98,7 +101,7 @@ const ui = {
     "cv.present": "present",
     "projects.title": "Projects",
     "projects.description":
-      "Projects by Kacper Zaleski: machine learning, medical imaging, knowledge graphs.",
+      "Machine learning projects by Kacper Zaleski: CT-to-PET translation with diffusion and flow models, a knowledge graph of Austrian banking, and more.",
     "projects.heading": "Things I've built",
     "projects.lede":
       "Research code and side projects, pulled from GitHub at build time.",
@@ -114,7 +117,8 @@ const ui = {
     "status.wip": "In progress",
     "status.archived": "Completed",
     "contact.title": "Contact",
-    "contact.description": "How to get in touch with Kacper Zaleski.",
+    "contact.description":
+      "Get in touch with Kacper Zaleski, AI / machine learning engineer in Vienna: email, GitHub and LinkedIn.",
     "contact.heading": "Get in touch",
     "contact.lede":
       "The best way to reach me is by email. I'm based in Vienna and read German, English and Polish.",
@@ -129,7 +133,8 @@ const ui = {
     "nav.projects": "Projekte",
     "nav.blog": "Blog",
     "blog.title": "Blog",
-    "blog.description": "Texte von Kacper Zaleski.",
+    "blog.description":
+      "Blog von Kacper Zaleski: Notizen zu Machine Learning, Projekten und woran er gerade arbeitet.",
     "blog.heading": "Blog",
     "blog.lede":
       "Notizen zu Machine Learning, Projekten und allem, woran ich gerade arbeite.",
@@ -148,8 +153,9 @@ const ui = {
     "theme.toDark": "Zum dunklen Modus wechseln",
     "theme.toLight": "Zum hellen Modus wechseln",
     "footer.city": "Wien",
+    "site.title": "Kacper Zaleski – AI / Machine Learning Engineer in Wien",
     "site.description":
-      "Kacper Zaleski, AI / Machine Learning Engineer in Wien: Lebenslauf und Projekte.",
+      "Kacper Zaleski, AI / Machine Learning Engineer in Wien, Masterstudium AI an der JKU Linz: Deep Learning, medizinische Bildgebung, Knowledge Graphs.",
     "home.eyebrow": "AI / Machine Learning Engineer",
     "home.lede":
       "AI-Absolvent der JKU Linz, jetzt im Masterstudium Artificial Intelligence. Ich arbeite an Modelltraining und Softwareentwicklung, von medizinischer Bildgebung bis zu Knowledge Graphs.",
@@ -157,7 +163,7 @@ const ui = {
     "home.ctaCv": "Lebenslauf lesen",
     "cv.title": "Lebenslauf",
     "cv.description":
-      "Lebenslauf von Kacper Zaleski, AI / Machine Learning Engineer.",
+      "Lebenslauf von Kacper Zaleski, AI / Machine Learning Engineer in Wien: Erfahrung an der MedUni Wien und bei Raiffeisen Bank International, JKU Linz. Mit PDF.",
     "cv.download": "PDF herunterladen",
     "cv.profile": "Profil",
     "cv.experience": "Berufserfahrung",
@@ -168,7 +174,7 @@ const ui = {
     "cv.present": "heute",
     "projects.title": "Projekte",
     "projects.description":
-      "Projekte von Kacper Zaleski: Machine Learning, medizinische Bildgebung, Knowledge Graphs.",
+      "ML-Projekte von Kacper Zaleski: CT-zu-PET-Übersetzung mit Diffusions- und Flow-Modellen, ein Knowledge Graph zum österreichischen Bankwesen und mehr.",
     "projects.heading": "Was ich gebaut habe",
     "projects.lede":
       "Forschungscode und eigene Projekte, beim Build direkt von GitHub geladen.",
@@ -184,7 +190,8 @@ const ui = {
     "status.wip": "In Arbeit",
     "status.archived": "Abgeschlossen",
     "contact.title": "Kontakt",
-    "contact.description": "So erreichen Sie Kacper Zaleski.",
+    "contact.description":
+      "Kontakt zu Kacper Zaleski, AI / Machine Learning Engineer in Wien: E-Mail, GitHub und LinkedIn.",
     "contact.heading": "Kontakt aufnehmen",
     "contact.lede":
       "Am besten erreichen Sie mich per E-Mail. Ich lebe in Wien und lese Deutsch, Englisch und Polnisch.",

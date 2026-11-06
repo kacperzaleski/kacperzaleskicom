@@ -157,6 +157,19 @@ example):
 Scouts section rule: text only or group-level. Never photos of minors,
 never children's names.
 
+## SEO
+
+- Titles and descriptions: `site.title` / `*.description` in
+  `src/i18n/index.ts` (keep descriptions under ~155 characters).
+- Structured data (schema.org JSON-LD) in `src/lib/seo.ts`: Person + WebSite on
+  the home page, ProfilePage on the CV, BlogPosting on posts. Built from
+  `cv.yml`. Test a URL with https://search.google.com/test/rich-results.
+- `public/_headers` sets `X-Robots-Tag: noindex` on all `*.pages.dev`
+  addresses, so only kacperzaleski.com gets indexed.
+- Sitemap: `/sitemap-index.xml` (with EN/DE alternates). RSS: `/blog/rss.xml`.
+- Google Search Console (property `kacperzaleski.com`, verified via DNS) shows
+  indexing status and search queries.
+
 ## Hosting, DNS and deploys
 
 ```
