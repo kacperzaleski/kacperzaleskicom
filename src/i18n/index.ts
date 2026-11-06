@@ -83,7 +83,7 @@ const ui = {
       "Kacper Zaleski, AI / machine learning engineer in Vienna: CV and projects.",
     "home.eyebrow": "AI / Machine Learning Engineer",
     "home.lede":
-      "AI graduate from JKU Linz, now doing a Master's in Artificial Intelligence. I work across model training, data engineering and software engineering, from medical imaging to knowledge graphs.",
+      "AI graduate from JKU Linz, now doing a Master's in Artificial Intelligence. I work across model training and software engineering, from medical imaging to knowledge graphs.",
     "home.ctaProjects": "See projects",
     "home.ctaCv": "Read CV",
     "cv.title": "CV",
@@ -152,7 +152,7 @@ const ui = {
       "Kacper Zaleski, AI / Machine Learning Engineer in Wien: Lebenslauf und Projekte.",
     "home.eyebrow": "AI / Machine Learning Engineer",
     "home.lede":
-      "AI-Absolvent der JKU Linz, jetzt im Masterstudium Artificial Intelligence. Ich arbeite an Modelltraining, Data Engineering und Softwareentwicklung, von medizinischer Bildgebung bis zu Knowledge Graphs.",
+      "AI-Absolvent der JKU Linz, jetzt im Masterstudium Artificial Intelligence. Ich arbeite an Modelltraining und Softwareentwicklung, von medizinischer Bildgebung bis zu Knowledge Graphs.",
     "home.ctaProjects": "Projekte ansehen",
     "home.ctaCv": "Lebenslauf lesen",
     "cv.title": "Lebenslauf",

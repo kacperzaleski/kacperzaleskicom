@@ -211,13 +211,15 @@ GitHub Actions ──deploy hook (daily / on demand)──┘
 
 ## Contact email
 
-Set in `src/consts.ts` (`EMAIL`). It's never written into the HTML as a
-plain address; a small inline script builds the link. Planned: switch to a
-Cloudflare Email Routing alias.
+`hello@kacperzaleski.com`, set in `src/consts.ts` (`EMAIL`). Cloudflare Email
+Routing (Compute → Email Service → Email Routing → Routing Rules) forwards it
+to Kacper's Gmail. On the site it's never written into the HTML as a plain
+address; a small inline script builds the link.
 
 ## Legal pages
 
-`/impressum` and `/datenschutz` are drafts (visible "Entwurf" notice) and not
-legal advice. Have them reviewed, then set `draft={false}` in both pages.
-Update the Datenschutz text if you ever add analytics, embeds or forms. If
-analytics is wanted, use Cloudflare Web Analytics (cookieless).
+`/impressum` and `/datenschutz` (German only), reviewed by Kacper. Update the
+Datenschutz text if you add analytics, embeds, forms or another mail/hosting
+provider. If analytics is wanted, use Cloudflare Web Analytics (cookieless).
+For a temporary "draft" banner while reworking a text, pass `draft` to
+`LegalLayout`.
