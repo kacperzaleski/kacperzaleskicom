@@ -17,3 +17,8 @@ export const LEGAL_NAV = [
   { href: "/impressum", label: "Impressum" },
   { href: "/datenschutz", label: "Datenschutz" },
 ] as const;
+
+// Contact email, split so it never appears as one string in the HTML.
+// TODO(kacper): switch to the Cloudflare Email Routing alias once it exists
+// (e.g. { user: "hello", domain: "kacperzaleski.com" }).
+export const EMAIL = { user: "kacperzaleski1", domain: "gmail.com" } as const;

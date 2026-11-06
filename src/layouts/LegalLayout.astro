@@ -1,0 +1,56 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Show the "draft, not reviewed" notice. Remove once Kacper has checked the text. */
+  draft?: boolean;
+}
+
+const { title, description, draft = true } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lang="de">
+  <article class="container legal">
+    <h1>{title}</h1>
+    {draft && (
+      <p class="draft" role="note">
+        Entwurf: Dieser Text wurde noch nicht rechtlich geprüft.
+      </p>
+    )}
+    <slot />
+  </article>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    padding-top: clamp(2.5rem, 7vw, 4.5rem);
+  }
+  .legal :global(h2) {
+    font-size: 1.25rem;
+    margin: 2rem 0 0.5rem;
+  }
+  .legal :global(p),
+  .legal :global(li) {
+    max-width: var(--measure);
+  }
+  .legal :global(dl) {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.5rem;
+  }
+  .legal :global(dd) {
+    margin: 0;
+  }
+  .legal :global(dt) {
+    color: var(--muted);
+  }
+  .draft {
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 8px 8px 0;
+  }
+</style>
