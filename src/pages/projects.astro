@@ -1,0 +1,91 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ProjectCard from "~/components/ProjectCard.astro";
+
+// Featured first, then most recently pushed. (The content store doesn't keep
+// the JSON's order, so sort here.)
+const projects = (await getCollection("projects"))
+  .map((e) => e.data)
+  .sort(
+    (a, b) =>
+      Number(b.featured) - Number(a.featured) ||
+      (b.pushedAt ?? "").localeCompare(a.pushedAt ?? ""),
+  );
+const featured = projects.filter((p) => p.featured);
+const more = projects.filter((p) => !p.featured);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Projects by Kacper Zaleski: machine learning, medical imaging, knowledge graphs."
+>
+  <section class="container intro">
+    <p class="eyebrow">Projects</p>
+    <h1>Things I've built</h1>
+    <p class="lede">
+      Research code and side projects, pulled from GitHub at build time.
+    </p>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="container" aria-labelledby="featured-h">
+      <h2 id="featured-h" class="visually-hidden">
+        Featured projects
+      </h2>
+      <div class="grid featured">
+        {featured.map((p, i) => (
+          <ProjectCard project={p} large eager={i === 0} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {more.length > 0 && (
+    <section class="container more" aria-labelledby="more-h">
+      <h2 id="more-h">More projects</h2>
+      <div class="grid">
+        {more.map((p) => (
+          <ProjectCard project={p} />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: clamp(2.5rem, 7vw, 4.5rem) 2rem;
+  }
+  .intro h1 {
+    margin-bottom: 0.5rem;
+  }
+  .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+  .grid.featured {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  }
+  .more {
+    margin-top: 3.5rem;
+  }
+  .more h2 {
+    font-size: 1.4rem;
+    margin: 0 0 1.25rem;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
