@@ -1,0 +1,68 @@
+---
+import {
+  LANGS,
+  LANG_NAMES,
+  type Lang,
+  localize,
+  useTranslations,
+} from "~/i18n";
+import { publicPath } from "~/lib/path";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const path = publicPath(Astro.url.pathname);
+---
+
+<nav class="lang-switch" aria-label={t("nav.language")}>
+  {LANGS.map((l) => (
+    <a
+      href={localize(path, l)}
+      hreflang={l}
+      lang={l}
+      aria-current={l === lang ? "true" : undefined}
+      title={LANG_NAMES[l]}
+    >
+      <span aria-hidden="true">{l.toUpperCase()}</span>
+      <span class="visually-hidden">{LANG_NAMES[l]}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  a {
+    min-width: 2.4rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-decoration: none;
+    color: var(--muted);
+    line-height: 1.2;
+  }
+  a:hover {
+    color: var(--accent);
+  }
+  a[aria-current="true"] {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

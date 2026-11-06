@@ -5,26 +5,43 @@ import SiteFooter from "~/components/SiteFooter.astro";
 import { SITE } from "~/consts";
 import { ogImageFor } from "~/lib/og";
 import { publicPath } from "~/lib/path";
+import {
+  LANGS,
+  type Lang,
+  isSingleLanguage,
+  basePath,
+  langFromPath,
+  localize,
+  useTranslations,
+} from "~/i18n";
 import displayFont from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
-  /** Page language, e.g. "de" for the Austrian legal pages. */
-  lang?: string;
+  /** Override the language (otherwise taken from the URL, /de/… = German). */
+  lang?: Lang;
 }
 
+const path = publicPath(Astro.url.pathname);
+const { lang = langFromPath(path) } = Astro.props;
+const t = useTranslations(lang);
 const {
   title,
-  description = SITE.description,
+  description = t("site.description"),
   noindex = false,
-  lang = SITE.lang,
 } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
-const path = publicPath(Astro.url.pathname);
 const canonical = new URL(path, Astro.site);
-const ogImage = new URL(ogImageFor(path), Astro.site);
+const ogImage = new URL(ogImageFor(path, lang), Astro.site);
+// hreflang alternates for pages that exist in both languages.
+const alternates = isSingleLanguage(basePath(path))
+  ? []
+  : LANGS.map((l) => ({
+      lang: l,
+      href: new URL(localize(path, l), Astro.site),
+    }));
 ---
 
 <!doctype html>
@@ -45,6 +62,12 @@ const ogImage = new URL(ogImageFor(path), Astro.site);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => (
+      <link rel="alternate" hreflang={a.lang} href={a.href} />
+    ))}
+    {alternates.length > 0 && (
+      <link rel="alternate" hreflang="x-default" href={alternates[0]!.href} />
+    )}
     <link
       rel="preload"
       href={displayFont}
@@ -64,6 +87,7 @@ const ogImage = new URL(ogImageFor(path), Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content={lang === "de" ? "de_AT" : "en_US"} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -73,12 +97,12 @@ const ogImage = new URL(ogImageFor(path), Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">
-      Skip to content
+      {t("skip")}
     </a>
-    <SiteHeader />
+    <SiteHeader lang={lang} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter lang={lang} />
   </body>
 </html>

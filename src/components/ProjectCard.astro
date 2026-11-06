@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Waves from "~/components/Waves.astro";
+import { useTranslations, type Lang } from "~/i18n";
 
 interface Props {
   project: CollectionEntry<"projects">["data"];
@@ -9,19 +10,24 @@ interface Props {
   large?: boolean;
   /** First card on the page: load its image eagerly (LCP). */
   eager?: boolean;
+  lang: Lang;
 }
 
-const { project: p, large = false, eager = false } = Astro.props;
+const { project: p, large = false, eager = false, lang } = Astro.props;
+const t = useTranslations(lang);
 
-const STATUS_LABEL = {
-  live: "Live",
-  demo: "Demo",
-  wip: "In progress",
-  archived: "Completed",
-} as const;
+// German texts from the override's `de:` block, English otherwise.
+const de = lang === "de" ? p.de : undefined;
+const title = de?.title ?? p.title;
+const tagline = de?.tagline ?? p.tagline;
+const body = de?.body ?? p.body;
+const alt =
+  de?.screenshotAlt ??
+  p.screenshotAlt ??
+  `${t("projects.screenshotOf")} ${title}`;
 
 const updated = p.pushedAt
-  ? new Date(p.pushedAt).toLocaleDateString("en-GB", {
+  ? new Date(p.pushedAt).toLocaleDateString(lang === "de" ? "de-AT" : "en-GB", {
       month: "short",
       year: "numeric",
     })
@@ -35,7 +41,7 @@ const seed = [...p.slug].reduce((a, c) => a + c.charCodeAt(0), 0);
     {p.screenshot ? (
       <Image
         src={p.screenshot}
-        alt={p.screenshotAlt ?? `Screenshot of ${p.title}`}
+        alt={alt}
         widths={[480, 800, 1200, 1600]}
         sizes={
           large
@@ -54,25 +60,29 @@ const seed = [...p.slug].reduce((a, c) => a + c.charCodeAt(0), 0);
 
   <div class="content">
     <p class="meta">
-      <span class:list={["status", p.status]}>{STATUS_LABEL[p.status]}</span>
+      <span class:list={["status", p.status]}>{t(`status.${p.status}`)}</span>
       {p.language && <span>{p.language}</span>}
-      {updated && <span>Updated {updated}</span>}
+      {updated && (
+        <span>
+          {t("projects.updated")} {updated}
+        </span>
+      )}
     </p>
     <h3>
       <a href={p.demoUrl ?? p.repoUrl} class="title-link">
-        {p.title}
+        {title}
       </a>
     </h3>
-    <p class="tagline">{p.tagline}</p>
-    {large && p.body && (
+    <p class="tagline">{tagline}</p>
+    {large && body && (
       <div class="body">
-        {p.body.split(/\n\s*\n/).map((para) => (
+        {body.split(/\n\s*\n/).map((para) => (
           <p>{para.replace(/\s*\n\s*/g, " ")}</p>
         ))}
       </div>
     )}
     {p.tags.length > 0 && (
-      <ul class="tags" aria-label="Tags">
+      <ul class="tags" aria-label={t("projects.tags")}>
         {p.tags.map((t) => (
           <li>{t}</li>
         ))}
@@ -81,14 +91,14 @@ const seed = [...p.slug].reduce((a, c) => a + c.charCodeAt(0), 0);
     <p class="links">
       {p.demoUrl && (
         <a class="button primary" href={p.demoUrl}>
-          Live demo
+          {t("projects.demo")}
         </a>
       )}
       <a
         class:list={["button", { primary: !p.demoUrl && large }]}
         href={p.repoUrl}
       >
-        Code on GitHub
+        {t("projects.code")}
       </a>
     </p>
   </div>

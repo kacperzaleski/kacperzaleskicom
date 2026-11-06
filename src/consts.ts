@@ -1,16 +1,14 @@
 export const SITE = {
   title: "Kacper Zaleski",
-  // TODO(kacper): one-line description for search results / social cards.
-  description: "Personal site of Kacper Zaleski, based in Vienna.",
-  lang: "en",
 } as const;
 
-// Adding a section = add a page folder + an entry here.
+// Adding a section = add a page under src/pages/[...locale]/, an entry here,
+// and its label in both languages in src/i18n/index.ts.
 export const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/cv", label: "CV" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", key: "nav.home" },
+  { href: "/cv", key: "nav.cv" },
+  { href: "/projects", key: "nav.projects" },
+  { href: "/contact", key: "nav.contact" },
 ] as const;
 
 export const LEGAL_NAV = [

@@ -49,15 +49,40 @@ export const OG_PAGES: OgPage[] = [
     title: "Get in touch",
     subtitle: "Email, GitHub and LinkedIn.",
   },
+  {
+    slug: "de-home",
+    path: "/de",
+    eyebrow: "AI / Machine Learning Engineer",
+    title: "Kacper Zaleski",
+    subtitle: "Modelltraining, Data Engineering und Softwareentwicklung. Wien.",
+  },
+  {
+    slug: "de-cv",
+    path: "/de/cv",
+    eyebrow: "Kacper Zaleski",
+    title: "Lebenslauf",
+    subtitle: "Berufserfahrung, Ausbildung und Kenntnisse. Mit PDF-Download.",
+  },
+  {
+    slug: "de-projects",
+    path: "/de/projects",
+    eyebrow: "Kacper Zaleski",
+    title: "Projekte",
+    subtitle: "Medizinische Bildgebung, Knowledge Graphs und mehr.",
+  },
+  {
+    slug: "de-contact",
+    path: "/de/contact",
+    eyebrow: "Kacper Zaleski",
+    title: "Kontakt",
+    subtitle: "E-Mail, GitHub und LinkedIn.",
+  },
 ];
 
-export const OG_DEFAULT = "home";
-
-/** OG image URL path for a page path; falls back to the home image. */
-export function ogImageFor(pathname: string): string {
-  const clean = pathname.replace(/\/$/, "") || "/";
-  const page = OG_PAGES.find((p) => p.path === clean);
-  return `/og/${page?.slug ?? OG_DEFAULT}.png`;
+/** OG image URL path for a public page path; falls back to the home image of that language. */
+export function ogImageFor(path: string, lang: "en" | "de" = "en"): string {
+  const page = OG_PAGES.find((p) => p.path === path);
+  return `/og/${page?.slug ?? (lang === "de" ? "de-home" : "home")}.png`;
 }
 
 const require = createRequire(import.meta.url);
