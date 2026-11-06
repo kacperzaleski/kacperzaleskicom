@@ -1,0 +1,66 @@
+[
+  {
+    "slug": "graphrag-explorer",
+    "repo": "kacperzaleski/graphrag-explorer",
+    "repoUrl": "https://github.com/kacperzaleski/graphrag-explorer",
+    "title": "GraphRAG Explorer",
+    "tagline": "Who owns whom in Austrian banking, as a knowledge graph you can explore and ask questions",
+    "status": "wip",
+    "featured": true,
+    "tags": [
+      "knowledge graph",
+      "GraphRAG",
+      "LLM",
+      "Neo4j",
+      "FastAPI",
+      "React"
+    ],
+    "screenshot": "../assets/projects/graphrag-explorer.png",
+    "screenshotFit": "cover",
+    "screenshotAlt": "GraphRAG Explorer showing BAWAG Group's ownership graph, with an entity card listing owners, stakes and source quotes",
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-11-06T12:04:09Z",
+    "body": "22 Wikipedia articles about Austrian banks, their owners and regulators, turned\ninto a knowledge graph by an LLM. Every fact links back to the sentence it came\nfrom. Hybrid graph + vector RAG answers questions with citations, and a\nreproducible evaluation compares graph mode against plain vector RAG."
+  },
+  {
+    "slug": "ct2pet",
+    "repo": "kacperzaleski/practical-work-CT2PET",
+    "repoUrl": "https://github.com/kacperzaleski/practical-work-CT2PET",
+    "title": "CT-to-PET translation with diffusion",
+    "tagline": "Synthesising PET scans from CT with a Brownian-bridge diffusion model (CPDM) on the autoPET dataset",
+    "status": "wip",
+    "featured": true,
+    "tags": [
+      "PyTorch",
+      "diffusion models",
+      "medical imaging",
+      "MONAI"
+    ],
+    "screenshot": "../assets/projects/ct2pet.png",
+    "screenshotFit": "contain",
+    "screenshotAlt": "Grid of CT slices next to PET predictions from several models (posterior mean, CPDM, concat-diffusion, concat-flow, PMRF) and the ground-truth PET",
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2026-07-27T11:01:44Z",
+    "body": "Reimplementation of the WACV 2025 paper \"CT to PET Translation: A Large-scale\nDataset and Domain-Knowledge-Guided Diffusion Approach\" on the autoPET challenge\ndata: attention-map UNet, VQGAN and Brownian-bridge diffusion in latent space.\nBasis of my bachelor's thesis at JKU."
+  },
+  {
+    "slug": "depixelation-ai",
+    "repo": "kacperzaleski/depixelationAI",
+    "repoUrl": "https://github.com/kacperzaleski/depixelationAI",
+    "title": "Depixelation CNN",
+    "tagline": "A convolutional network in PyTorch that reconstructs pixelated regions of images",
+    "status": "archived",
+    "featured": false,
+    "tags": [
+      "PyTorch",
+      "CNN",
+      "computer vision"
+    ],
+    "screenshotFit": "cover",
+    "language": "Python",
+    "stars": 0,
+    "pushedAt": "2023-07-13T17:05:10Z"
+  }
+]

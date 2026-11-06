@@ -24,3 +24,6 @@ jobs:
       - run: pnpm lint
       - run: pnpm check
       - run: pnpm build
+        env:
+          # Read-only token for the project sync (higher API rate limit).
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

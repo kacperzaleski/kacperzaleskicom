@@ -8,7 +8,8 @@
   "packageManager": "pnpm@12.18.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "sync": "node scripts/sync-projects.ts",
+    "build": "node scripts/sync-projects.ts && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint . && prettier --check .",
