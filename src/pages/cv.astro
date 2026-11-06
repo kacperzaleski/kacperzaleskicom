@@ -1,0 +1,229 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { cv, formatSpan } from "~/lib/cv";
+---
+
+<BaseLayout title="CV" description={`CV of ${cv.name}, ${cv.role}.`}>
+  <article class="container cv">
+    <header class="cv-head">
+      <div>
+        <p class="eyebrow">{cv.role}</p>
+        <h1>{cv.name}</h1>
+        <p class="meta">
+          {cv.location}
+          {cv.links.map((l) => (
+            <>
+              {" · "}
+              <a href={l.url}>{l.label}</a>
+            </>
+          ))}
+        </p>
+      </div>
+      <a class="button primary no-print" href="/cv.pdf" download>
+        Download PDF
+      </a>
+    </header>
+
+    <section aria-labelledby="profile">
+      <h2 id="profile">Profile</h2>
+      <p class="profile">{cv.profile}</p>
+    </section>
+
+    <section aria-labelledby="experience">
+      <h2 id="experience">Experience</h2>
+      <ol class="entries">
+        {cv.experience.map((e) => (
+          <li>
+            <p class="when">{formatSpan(e.start, e.end)}</p>
+            <div>
+              <h3>
+                {e.title}, <span class="org">{e.org}</span>
+                {e.location && <span class="loc">, {e.location}</span>}
+              </h3>
+              <p>{e.summary}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="education">
+      <h2 id="education">Education</h2>
+      <ol class="entries">
+        {cv.education.map((e) => (
+          <li>
+            <p class="when">{formatSpan(e.start, e.end)}</p>
+            <div>
+              <h3>
+                {e.degree}, <span class="org">{e.institution}</span>
+                {e.location && <span class="loc">, {e.location}</span>}
+              </h3>
+              {e.details && <p>{e.details}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="skills">
+      <h2 id="skills">Technical skills</h2>
+      <dl class="pairs">
+        {cv.skills.map((s) => (
+          <div>
+            <dt>{s.group}</dt>
+            <dd>{s.items.join(", ")}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="languages">
+      <h2 id="languages">Languages</h2>
+      <dl class="pairs">
+        {cv.languages.map((l) => (
+          <div>
+            <dt>{l.name}</dt>
+            <dd>{l.level}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="interests">
+      <h2 id="interests">Interests</h2>
+      <dl class="pairs">
+        {cv.interests.map((i) => (
+          <div>
+            <dt>{i.label}</dt>
+            <dd>{i.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .cv {
+    max-width: 52rem;
+    padding-top: clamp(2.5rem, 7vw, 4.5rem);
+  }
+  .cv-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cv-head h1 {
+    margin-bottom: 0.4rem;
+  }
+  .meta {
+    margin: 0;
+    color: var(--muted);
+  }
+  section {
+    margin-top: 2.25rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  /* Small wave mark before each section heading. */
+  h2::before {
+    content: "";
+    flex: none;
+    width: 2rem;
+    height: 0.6rem;
+    background: var(--accent);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 10'%3E%3Cpath d='M1 5 C 5 0, 9 0, 12 5 S 19 10, 22 5 S 28 0, 31 5' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+  .profile {
+    margin: 0;
+    max-width: var(--measure);
+  }
+  .entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .entries li,
+  .pairs > div {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+  .when,
+  dt {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.1rem;
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    line-height: 1.4;
+    margin: 0 0 0.25rem;
+  }
+  .org {
+    font-weight: 500;
+  }
+  .loc {
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .entries p:not(.when) {
+    margin: 0;
+  }
+  .pairs {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  dd {
+    margin: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .entries li,
+    .pairs > div {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media print {
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.skip-link),
+    .no-print {
+      display: none !important;
+    }
+    :global(body) {
+      font-size: 10.5pt;
+    }
+    .cv {
+      padding: 0;
+      max-width: none;
+    }
+    section {
+      margin-top: 1.25rem;
+      break-inside: avoid-page;
+    }
+    .entries li {
+      break-inside: avoid;
+    }
+  }
+</style>
