@@ -50,6 +50,20 @@ export const OG_PAGES: OgPage[] = [
     subtitle: "Email, GitHub and LinkedIn.",
   },
   {
+    slug: "blog",
+    path: "/blog",
+    eyebrow: "Kacper Zaleski",
+    title: "Blog",
+    subtitle: "Notes on machine learning, projects and more.",
+  },
+  {
+    slug: "de-blog",
+    path: "/de/blog",
+    eyebrow: "Kacper Zaleski",
+    title: "Blog",
+    subtitle: "Notizen zu Machine Learning, Projekten und mehr.",
+  },
+  {
     slug: "de-home",
     path: "/de",
     eyebrow: "AI / Machine Learning Engineer",
@@ -202,7 +216,14 @@ export async function renderOg(page: OgPage): Promise<Uint8Array<ArrayBuffer>> {
             "div",
             {
               fontFamily: "Display",
-              fontSize: page.title.length > 16 ? 96 : 120,
+              fontSize:
+                page.title.length > 40
+                  ? 64
+                  : page.title.length > 24
+                    ? 80
+                    : page.title.length > 16
+                      ? 96
+                      : 120,
               fontWeight: 700,
               color: C.text,
               letterSpacing: -3,

@@ -7,6 +7,11 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file", inlineStylesheets: "always" },
+  markdown: {
+    shikiConfig: {
+      themes: { light: "github-light", dark: "github-dark" },
+    },
+  },
   integrations: [
     sitemap({
       i18n: { defaultLocale: "en", locales: { en: "en", de: "de" } },

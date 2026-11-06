@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 /**
@@ -44,4 +44,32 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { projects };
+/**
+ * Blog posts: src/content/blog/<slug>.md or src/content/blog/<slug>/index.md
+ * (a folder lets you keep images next to the post). The slug is the file or
+ * folder name and becomes the URL: /blog/<slug>.
+ */
+const blog = defineCollection({
+  loader: glob({
+    pattern: ["**/*.md", "!**/_*", "!**/_*/**"],
+    base: "src/content/blog",
+    generateId: ({ entry }) => entry.replace(/(\/index)?\.md$/, ""),
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      date: z.coerce.date(),
+      updated: z.coerce.date().optional(),
+      /** Language the post is written in. */
+      lang: z.enum(["en", "de"]).default("en"),
+      tags: z.array(z.string()).default([]),
+      /** Optional cover image, path relative to the post file. */
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
+      /** Drafts show up in `pnpm dev` only, never in the built site. */
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { projects, blog };

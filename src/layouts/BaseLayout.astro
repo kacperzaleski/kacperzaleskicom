@@ -22,10 +22,14 @@ interface Props {
   noindex?: boolean;
   /** Override the language (otherwise taken from the URL, /de/… = German). */
   lang?: Lang;
+  /** Override where the EN | DE switch links to (e.g. blog posts). */
+  langLinks?: Partial<Record<Lang, string>>;
+  /** Override the social preview image path (e.g. per blog post). */
+  ogImagePath?: string;
 }
 
 const path = publicPath(Astro.url.pathname);
-const { lang = langFromPath(path) } = Astro.props;
+const { lang = langFromPath(path), langLinks, ogImagePath } = Astro.props;
 const t = useTranslations(lang);
 const {
   title,
@@ -34,7 +38,7 @@ const {
 } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonical = new URL(path, Astro.site);
-const ogImage = new URL(ogImageFor(path, lang), Astro.site);
+const ogImage = new URL(ogImagePath ?? ogImageFor(path, lang), Astro.site);
 // hreflang alternates for pages that exist in both languages.
 const alternates = isSingleLanguage(basePath(path))
   ? []
@@ -99,7 +103,7 @@ const alternates = isSingleLanguage(basePath(path))
     <a class="skip-link" href="#main">
       {t("skip")}
     </a>
-    <SiteHeader lang={lang} />
+    <SiteHeader lang={lang} langLinks={langLinks} />
     <main id="main">
       <slot />
     </main>

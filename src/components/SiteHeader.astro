@@ -7,8 +7,9 @@ import LanguageSwitch from "~/components/LanguageSwitch.astro";
 
 interface Props {
   lang: Lang;
+  langLinks?: Partial<Record<Lang, string>> | undefined;
 }
-const { lang } = Astro.props;
+const { lang, langLinks } = Astro.props;
 const t = useTranslations(lang);
 
 const path = basePath(publicPath(Astro.url.pathname));
@@ -49,7 +50,7 @@ const isActive = (href: string) =>
       </ul>
     </nav>
     <div class="tools">
-      <LanguageSwitch lang={lang} />
+      <LanguageSwitch lang={lang} links={langLinks} />
       <ThemeToggle
         labels={{ toDark: t("theme.toDark"), toLight: t("theme.toLight") }}
       />
@@ -88,6 +89,12 @@ const isActive = (href: string) =>
     }
     nav {
       justify-self: start;
+    }
+    ul {
+      gap: 0.25rem 1rem;
+    }
+    nav a {
+      font-size: 0.95rem;
     }
   }
   .brand {

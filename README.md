@@ -111,32 +111,48 @@ to its entry in the committed `projects.json`, with your local override files
 still applied on top. The build never fails because of GitHub. Local builds:
 `GITHUB_TOKEN=$(gh auth token) pnpm build` avoids the rate limit.
 
-## Add a blog post (or any new section)
+## Write a blog post
 
-There is no blog yet. Adding a section is a folder + a collection, no
-refactor:
+1. Create `src/content/blog/my-post.md` (URL: `/blog/my-post`), or a folder
+   `src/content/blog/my-post/index.md` if you want images next to it.
+2. Start with this header:
 
-1. Define a collection in `src/content.config.ts`:
-
-   ```ts
-   import { glob } from "astro/loaders";
-   const blog = defineCollection({
-     loader: glob({ pattern: "**/*.md", base: "src/content/blog" }),
-     schema: z.object({
-       title: z.string(),
-       date: z.coerce.date(),
-       draft: z.boolean().default(false),
-     }),
-   });
-   export const collections = { projects, blog };
+   ```yaml
+   ---
+   title: My post
+   subtitle: One line shown under the title in the list
+   date: 2026-11-06
+   lang: en # or de, the language you write in
+   tags: [optional]
+   draft: true # remove when it's ready
+   ---
    ```
 
-2. Write posts as `src/content/blog/<slug>.md` with that front matter.
-3. Add `src/pages/[...locale]/blog/index.astro` (list) and a post page
-   (via `getCollection("blog")` + `render()`), following the existing pages.
-4. Add `{ href: "/blog", key: "nav.blog" }` to `NAV` in `src/consts.ts` and
-   `"nav.blog"` in both languages in `src/i18n/index.ts`.
-5. Optional: an OG image entry in `OG_PAGES` (`src/lib/og.ts`).
+3. Write Markdown below it. `pnpm dev` → http://localhost:4321/blog shows
+   drafts too, marked "Draft". Remove `draft: true`, commit, open a PR.
+
+`src/content/blog/how-to-write-a-post.md` is a draft template showing every
+option (images, cover, code, tables). Files or folders starting with `_` are
+ignored, handy for notes.
+
+- `/blog` and `/de/blog` list all posts (newest first). A post is in one
+  language; posts in the other language get a small EN/DE badge.
+- Each post gets a social preview image with its title automatically.
+- To preview drafts in a production build: `SHOW_DRAFTS=1 pnpm build`.
+- No photos of children (scouts). Group-level or text only.
+
+## Add a new section
+
+Adding a section is a folder + a collection, no refactor (the blog is an
+example):
+
+1. Define a collection in `src/content.config.ts`.
+2. Add pages under `src/pages/[...locale]/<section>/` with
+   `export const getStaticPaths = localeStaticPaths;`.
+3. Add `{ href: "/<section>", key: "nav.<section>" }` to `NAV` in
+   `src/consts.ts` and `"nav.<section>"` in both languages in
+   `src/i18n/index.ts`.
+4. Optional: an OG image entry in `OG_PAGES` (`src/lib/og.ts`).
 
 Scouts section rule: text only or group-level. Never photos of minors,
 never children's names.

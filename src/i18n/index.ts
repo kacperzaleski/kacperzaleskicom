@@ -23,7 +23,8 @@ export const localeStaticPaths = () =>
   }));
 
 export function isSingleLanguage(path: string): boolean {
-  return SINGLE_LANGUAGE_PATHS.includes(path);
+  // Blog posts are written in one language each: /blog/<slug>.
+  return SINGLE_LANGUAGE_PATHS.includes(path) || path.startsWith("/blog/");
 }
 
 /** Language of a public path ("/de/cv" → "de"). */
@@ -57,6 +58,19 @@ const ui = {
     "nav.home": "Home",
     "nav.cv": "CV",
     "nav.projects": "Projects",
+    "nav.blog": "Blog",
+    "blog.title": "Blog",
+    "blog.description": "Writing by Kacper Zaleski.",
+    "blog.heading": "Blog",
+    "blog.lede":
+      "Notes on machine learning, projects and whatever else I'm working on.",
+    "blog.empty": "No posts yet.",
+    "blog.minRead": "min read",
+    "blog.updated": "Updated",
+    "blog.back": "All posts",
+    "blog.draft": "Draft (only visible locally)",
+    "blog.inGerman": "In German",
+    "blog.inEnglish": "In English",
     "nav.contact": "Contact",
     "nav.main": "Main",
     "nav.legal": "Legal",
@@ -113,6 +127,19 @@ const ui = {
     "nav.home": "Start",
     "nav.cv": "Lebenslauf",
     "nav.projects": "Projekte",
+    "nav.blog": "Blog",
+    "blog.title": "Blog",
+    "blog.description": "Texte von Kacper Zaleski.",
+    "blog.heading": "Blog",
+    "blog.lede":
+      "Notizen zu Machine Learning, Projekten und allem, woran ich gerade arbeite.",
+    "blog.empty": "Noch keine Beiträge.",
+    "blog.minRead": "Min. Lesezeit",
+    "blog.updated": "Aktualisiert",
+    "blog.back": "Alle Beiträge",
+    "blog.draft": "Entwurf (nur lokal sichtbar)",
+    "blog.inGerman": "Auf Deutsch",
+    "blog.inEnglish": "Auf Englisch",
     "nav.contact": "Kontakt",
     "nav.main": "Hauptmenü",
     "nav.legal": "Rechtliches",
