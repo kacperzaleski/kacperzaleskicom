@@ -1,5 +1,6 @@
 ---
 import WaveEdge from "~/components/WaveEdge.astro";
+import KzLogo from "~/assets/brand/kz-logo.svg";
 import { LEGAL_NAV, SITE } from "~/consts";
 
 const year = new Date().getFullYear();
@@ -9,8 +10,11 @@ const year = new Date().getFullYear();
   <WaveEdge />
   <div class="band">
     <div class="container row">
-      <p>
-        © {year} {SITE.title} · Vienna
+      <p class="sign">
+        <KzLogo class="logo" width={32} height={32} aria-hidden="true" />
+        <span>
+          © {year} {SITE.title} · Vienna
+        </span>
       </p>
       <nav aria-label="Legal">
         <ul>
@@ -26,6 +30,15 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  .sign {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .sign :global(.logo) {
+    flex: none;
+    border-radius: 7px;
+  }
   .site-footer {
     margin-top: 3rem;
     color: var(--muted);
