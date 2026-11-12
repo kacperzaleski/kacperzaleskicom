@@ -24,128 +24,209 @@ links:
 
 profile:
   en: >-
-    AI graduate (JKU Linz) with hands-on experience in deep learning, data
-    pipelines, and full-stack development across a hospital, a bank, and
-    academic research. Comfortable moving between model training, data
-    engineering, and software engineering; currently starting a Master's in
-    Artificial Intelligence.
+    AI graduate building ML and LLM systems end to end, from generative models
+    for medical imaging to evaluated knowledge-graph retrieval, with full-stack
+    software experience in banking and healthcare.
   de: >-
-    AI-Absolvent (JKU Linz) mit praktischer Erfahrung in Deep Learning,
-    Datenpipelines und Full-Stack-Entwicklung, im Krankenhausumfeld, in einer
-    Bank und in der universitären Forschung. Ich arbeite sicher zwischen
-    Modelltraining, Data Engineering und Softwareentwicklung und beginne gerade
-    das Masterstudium Artificial Intelligence.
+    AI-Absolvent, der ML- und LLM-Systeme durchgängig umsetzt, von generativen
+    Modellen für medizinische Bildgebung bis zu evaluiertem
+    Knowledge-Graph-Retrieval, mit Full-Stack-Erfahrung in Bank- und
+    Gesundheitswesen.
+
+experience:
+  - start: 2025-03
+    title: Tutor
+    org:
+      {
+        en: Johannes Kepler University (JKU) Linz,
+        de: Johannes Kepler Universität (JKU) Linz,
+      }
+    highlights:
+      - en: >-
+          Lead exercise sessions and grade assignments for Python 1 & 2 and
+          Hands-on AI 1 & 2.
+        de: >-
+          Leitung von Übungseinheiten und Korrektur von Abgaben für Python 1 & 2
+          und Hands-on AI 1 & 2.
+  - start: 2024-06
+    end: 2024-12
+    title: { en: Programmer, de: Programmierer }
+    org: { en: Medical University of Vienna, de: Medizinische Universität Wien }
+    location: { en: Vienna, de: Wien }
+    highlights:
+      - en: >-
+          Built a data pipeline that extracts high-dimensional perioperative
+          data (anesthesia records and patient monitoring sensors from the
+          operating room) from an Oracle database and curates it for downstream
+          ML models.
+        de: >-
+          Aufbau einer Datenpipeline, die hochdimensionale perioperative Daten
+          (Anästhesieprotokolle und Sensordaten der Patientenüberwachung im OP)
+          aus einer Oracle-Datenbank extrahiert und für nachgelagerte ML-Modelle
+          kuratiert.
+      - en: >-
+          Processed sensitive patient data under strict data protection rules
+          and turned clinical requirements into code.
+        de: >-
+          Verarbeitung sensibler Patientendaten unter strengen
+          Datenschutzauflagen; Umsetzung klinischer Anforderungen in Code.
+  - start: 2023-04
+    end: 2024-04
+    title:
+      en: Full-Stack Developer (student position)
+      de: Full-Stack-Entwickler (Studentische Anstellung)
+    org: Raiffeisen Bank International
+    location: { en: Vienna, de: Wien }
+    highlights:
+      - en: >-
+          Built the Angular frontend and Node.js / PostgreSQL backend of an
+          internal budgeting tool for a 20-person team.
+        de: >-
+          Entwicklung von Angular-Frontend und Node.js-/PostgreSQL-Backend eines
+          internen Budgetierungstools für ein 20-köpfiges Team.
+      - en: Built Power BI dashboards on budgets across most of Eastern Europe.
+        de: >-
+          Erstellung von Power-BI-Dashboards zu Budgets in weiten Teilen
+          Osteuropas.
+  - start: 2021-07
+    end: 2021-07
+    title: { en: Intern, de: Praktikant }
+    org: Evolit Consulting GmbH
+    location: { en: Vienna, de: Wien }
+    highlights:
+      - en: Built a marketing website for a new company service.
+        de: Entwicklung einer Marketing-Website für ein neues Unternehmensangebot.
+  - start: 2019-07
+    end: 2019-07
+    title: { en: Intern, de: Praktikant }
+    org: Raiffeisen Informatik Technical Services
+    location: { en: Vienna, de: Wien }
+    highlights:
+      - en: WordPress homepage, SAP debugging, SharePoint workflows.
+        de: WordPress-Homepage, Fehleranalyse in SAP, SharePoint-Workflows.
 
 education:
-  - start: "2026"
+  - start: 2026-10
     degree: M.Sc. Artificial Intelligence
     institution:
       en: Johannes Kepler University (JKU) Linz
       de: Johannes Kepler Universität (JKU) Linz
+    location: { en: based in Vienna, de: Studienort Wien }
   - start: "2022"
     end: "2026"
     degree: B.Sc. Artificial Intelligence
     institution:
       en: Johannes Kepler University (JKU) Linz
       de: Johannes Kepler Universität (JKU) Linz
-    details:
-      en: >-
-        Bachelor's thesis: deep learning approaches for CT/PET medical image
-        translation, including diffusion-based generative models (Schrödinger
-        bridge, conditional denoising, paired training).
-      de: >-
-        Bachelorarbeit: Deep-Learning-Ansätze für die Übersetzung medizinischer
-        CT/PET-Bilder, einschließlich diffusionsbasierter generativer Modelle
-        (Schrödinger-Brücke, konditionales Denoising, gepaartes Training).
+    highlights:
+      - en: >-
+          Thesis: “Generative Architectures for CT-to-PET Image Translation: A
+          Comparative Study on the Perception–Distortion Plane”, supervised by
+          Ass.-Prof. Dr. Erich Kobler (grade: Sehr Gut).
+        de: >-
+          Bachelorarbeit: „Generative Architectures for CT-to-PET Image
+          Translation: A Comparative Study on the Perception–Distortion Plane“,
+          betreut von Ass.-Prof. Dr. Erich Kobler (Note: Sehr Gut).
+      - en: >-
+          Semester abroad at Linköping University, Sweden (Jan – Jun 2025): AI
+          ethics, Nordic culture and language.
+        de: >-
+          Auslandssemester an der Universität Linköping, Schweden (Jän – Jun
+          2025): KI-Ethik, nordische Kultur und Sprache.
   - start: "2017"
     end: "2022"
     degree:
-      en: Diploma, Computer Science
+      en: Diploma (Reife- und Diplomprüfung), Computer Science
       de: Reife- und Diplomprüfung, Informatik
     institution: HTL Spengergasse
     location: { en: Vienna, de: Wien }
-    details:
-      en: >-
-        Diploma thesis on DevOps, covering CI/CD pipelines, containerization
-        with Docker, and monitoring.
-      de: >-
-        Diplomarbeit zu DevOps: CI/CD-Pipelines, Containerisierung mit Docker
-        und Monitoring.
+    highlights:
+      - en: >-
+          Diploma project with ACP Group on DevOps: CI/CD pipelines, Docker
+          containerization and monitoring.
+        de: >-
+          Diplomprojekt mit der ACP Group zu DevOps: CI/CD-Pipelines,
+          Containerisierung mit Docker und Monitoring.
 
-experience:
-  - start: 2024-06
-    end: 2024-12
-    title: { en: Programmer, de: Programmierer }
-    org: { en: Medical University of Vienna, de: Medizinische Universität Wien }
-    location: { en: Vienna, de: Wien }
-    summary:
-      en: >-
-        Curated high-dimensional intensive care data and developed a data
-        pipeline for downstream ML models.
-      de: >-
-        Kuratierung hochdimensionaler Intensivmedizin-Daten und Entwicklung
-        einer Datenpipeline für nachgelagerte ML-Modelle.
-  - start: 2023-04
-    end: 2024-04
-    title: { en: Full-Stack Developer, de: Full-Stack-Entwickler }
-    org: Raiffeisen Bank International
-    location: { en: Vienna, de: Wien }
-    summary:
-      en: >-
-        Developed the back- and frontend of an internal budget management
-        service; built PowerBI dashboards for international budget insights.
-      de: >-
-        Entwicklung von Backend und Frontend eines internen
-        Budgetverwaltungsservice; PowerBI-Dashboards für internationale
-        Budgetauswertungen.
-  - start: 2021-07
-    end: 2021-07
-    title: { en: Intern, de: Praktikant }
-    org: Evolit Consulting GmbH
-    location: { en: Vienna, de: Wien }
-    summary:
-      en: Built a marketing website for a new company service.
-      de: Entwicklung einer Marketing-Website für ein neues Unternehmensangebot.
-  - start: 2019-07
-    end: 2019-07
-    title: { en: Intern, de: Praktikant }
-    org: Raiffeisen Informatik Technical Services
-    location: { en: Vienna, de: Wien }
-    summary:
-      en: >-
-        Built a new homepage, debugged SAP systems, and created SharePoint
-        workflows.
-      de: >-
-        Erstellung einer neuen Homepage, Fehleranalyse in SAP-Systemen und
-        Umsetzung von SharePoint-Workflows.
+projects:
+  - name: GraphRAG Explorer
+    subtitle:
+      {
+        en: ownership in Austrian banking,
+        de: Eigentümerstrukturen im österreichischen Bankwesen,
+      }
+    stack: [Python, Neo4j, FastAPI, React, LLM APIs]
+    url: https://github.com/kacperzaleski/graphrag-explorer
+    highlights:
+      - en: >-
+          Built an LLM extraction pipeline that turns 22 Wikipedia articles into
+          a knowledge graph of 726 entities and 585 relations, with every fact
+          grounded in its source sentence.
+        de: >-
+          LLM-Extraktionspipeline, die 22 Wikipedia-Artikel in einen Knowledge
+          Graph mit 726 Entitäten und 585 Relationen überführt; jeder Fakt ist
+          in seinem Quellsatz verankert.
+      - en: >-
+          Implemented hybrid retrieval (vector + BM25 with rank fusion, graph
+          paths, reranker) with cited answers, plus PageRank, community
+          detection and a path finder in a React explorer.
+        de: >-
+          Hybrides Retrieval (Vektor + BM25 mit Rank Fusion, Graphpfade,
+          Reranker) mit Quellenangaben, dazu PageRank, Community Detection und
+          ein Pfadfinder in einem React-Explorer.
+      - en: >-
+          Ran a pre-registered, paired evaluation against plain vector RAG with
+          a cross-provider LLM judge, bootstrap CIs and McNemar’s test; covered
+          by 77 offline pytest tests, Dockerized.
+        de: >-
+          Präregistrierte, gepaarte Evaluation gegen reines Vektor-RAG mit
+          anbieterübergreifendem LLM-Judge, Bootstrap-Konfidenzintervallen und
+          McNemar-Test; abgedeckt durch 77 Offline-pytest-Tests, dockerisiert.
+  - name: { en: CT-to-PET image synthesis, de: CT-zu-PET-Bildsynthese }
+    subtitle: { en: Bachelor’s thesis, de: Bachelorarbeit }
+    stack: [PyTorch, diffusion, flow matching]
+    url: https://github.com/kacperzaleski/practical-work-CT2PET
+    highlights:
+      - en: >-
+          Compared four generative models (latent diffusion incl. CPDM,
+          rectified flow incl. PMRF) and a U-Net baseline on the autoPET dataset
+          with one shared evaluation.
+        de: >-
+          Vergleich von vier generativen Modellen (Latent Diffusion inkl. CPDM,
+          Rectified Flow inkl. PMRF) und einer U-Net-Baseline auf dem
+          autoPET-Datensatz mit einheitlicher Evaluation.
+      - en: >-
+          PMRF reached the best realism (FID 42.0, KID 0.008, 4.6× lower KID
+          than the U-Net) while keeping the best SSIM of all generators.
+        de: >-
+          PMRF erreichte den höchsten Realismus (FID 42,0, KID 0,008, 4,6×
+          niedrigere KID als das U-Net) bei der besten SSIM aller Generatoren.
 
 skills:
-  - group: { en: Languages, de: Programmiersprachen }
-    items: [Python, Java (Spring), JavaScript, SQL]
-  - group: Machine Learning
+  - group: { en: Programming, de: Programmiersprachen }
+    items: [Python, Java, TypeScript / JavaScript, SQL, C#]
+  - group: ML & AI
     items:
       - PyTorch
-      - { en: deep learning, de: Deep Learning }
-      - {
-          en: diffusion-based generative modeling,
-          de: diffusionsbasierte generative Modelle,
-        }
-      - en: exposure to NLP, RL and computer vision
-        de: Grundkenntnisse in NLP, RL und Computer Vision
+      - scikit-learn
+      - MONAI
+      - { en: diffusion and flow models, de: Diffusions- und Flow-Modelle }
+      - CNNs (U-Net, YOLO)
+      - RL
+      - { en: statistics, de: Statistik }
+  - group: { en: LLM systems, de: LLM-Systeme }
+    items:
+      - RAG / GraphRAG
+      - structured outputs
+      - function calling
+      - { en: LLM-as-judge evaluation, de: LLM-as-Judge-Evaluation }
+      - Claude Code
+  - group: Backend & Web
+    items: [FastAPI, Spring Boot, Node.js, Angular, React, REST APIs]
   - group: { en: Data, de: Daten }
-    items:
-      - { en: data pipeline design, de: Design von Datenpipelines }
-      - {
-          en: high-dimensional data curation,
-          de: Kuratierung hochdimensionaler Daten,
-        }
-      - pandas
-  - group: DevOps & Tools
-    items: [Docker, CI/CD, { en: monitoring, de: Monitoring }, Git]
-  - group: Web & BI
-    items:
-      - { en: full-stack web development, de: Full-Stack-Webentwicklung }
-      - PowerBI
+    items: [PostgreSQL, Oracle, Neo4j, pandas, ETL, Power BI, Grafana]
+  - group: DevOps
+    items: [Docker, Git, Jenkins, GitHub Actions, pytest, Linux]
 
 languages:
   - name: { en: German, de: Deutsch }
@@ -155,19 +236,37 @@ languages:
   - name: { en: Polish, de: Polnisch }
     level: { en: Native, de: Muttersprache }
 
-interests:
-  - label: { en: Scouting, de: Pfadfinder }
+volunteering:
+  - start: "2023"
+    title:
+      {
+        en: Austrian Students’ Union (ÖH),
+        de: Österreichische Hochschüler:innenschaft (ÖH),
+      }
+    org:
+      {
+        en: "AI studies, JKU Linz, Vienna campus",
+        de: "AI-Studium, JKU Linz, Campus Wien",
+      }
     text:
       en: >-
-        Active for 15 years; responsible for group website & Office 365
-        administration, youth mentoring, and external contributions to SCOREG
-        (Austrian Scout Association's national membership platform).
+        Main contact for AI students on the JKU Vienna campus: student advice
+        and events (AI Vienna Orientation Days).
       de: >-
-        Seit 15 Jahren aktiv; verantwortlich für Gruppen-Website und
-        Office-365-Administration, Jugendbetreuung sowie externe Beiträge zu SCOREG (der
-        österreichweiten Mitgliederplattform der Pfadfinder und Pfadfinderinnen
-        Österreichs).
-  - label: { en: Other, de: Sonstiges }
+        Hauptansprechperson für AI-Studierende am JKU-Campus Wien:
+        Studienberatung und Veranstaltungen (AI Vienna Orientation Days).
+  - title: { en: Scouts, de: Pfadfinder }
+    org: { en: "Vienna, 15 years", de: "Wien, seit 15 Jahren" }
     text:
-      en: Skiing and outdoor activities.
-      de: Skifahren und Outdoor-Aktivitäten.
+      en: >-
+        Youth mentoring, group website and Microsoft 365 admin, contributions
+        to SCOREG (the Austrian Scout Association’s national membership
+        platform).
+      de: >-
+        Jugendbetreuung, Gruppen-Website und Microsoft-365-Administration,
+        Beiträge zu SCOREG (der österreichweiten Mitgliederplattform der
+        Pfadfinder und Pfadfinderinnen Österreichs).
+
+interests:
+  en: Skiing and outdoor activities.
+  de: Skifahren und Outdoor-Aktivitäten.

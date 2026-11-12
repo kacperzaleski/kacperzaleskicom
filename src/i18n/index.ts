@@ -90,7 +90,7 @@ const ui = {
     "home.ctaCv": "Read CV",
     "cv.title": "CV",
     "cv.description":
-      "CV of Kacper Zaleski, AI / machine learning engineer in Vienna: experience at MedUni Vienna and Raiffeisen Bank International, JKU Linz, skills. PDF included.",
+      "CV of Kacper Zaleski, AI / machine learning engineer in Vienna: experience at MedUni Vienna, Raiffeisen Bank International and JKU Linz, GraphRAG and medical imaging projects, skills. PDF included.",
     "cv.download": "Download PDF",
     "cv.profile": "Profile",
     "cv.experience": "Experience",
@@ -98,6 +98,10 @@ const ui = {
     "cv.skills": "Technical skills",
     "cv.languages": "Languages",
     "cv.interests": "Interests",
+    "cv.projects": "Selected projects",
+    "cv.volunteering": "Volunteering",
+    "cv.code": "Code on GitHub",
+    "cv.stack": "Tech stack",
     "cv.present": "present",
     "projects.title": "Projects",
     "projects.description":
@@ -171,6 +175,10 @@ const ui = {
     "cv.skills": "Technische Kenntnisse",
     "cv.languages": "Sprachen",
     "cv.interests": "Interessen",
+    "cv.projects": "Ausgewählte Projekte",
+    "cv.volunteering": "Ehrenamt",
+    "cv.code": "Code auf GitHub",
+    "cv.stack": "Technologien",
     "cv.present": "heute",
     "projects.title": "Projekte",
     "projects.description":

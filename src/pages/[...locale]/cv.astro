@@ -14,6 +14,26 @@ const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 const cv = cvFor(lang);
 const url = new URL(localize("/cv", lang), Astro.site);
+
+// Timeline rows for experience and education share one shape.
+const experience = cv.experience.map((e) => ({
+  when: formatSpan(e.start, e.end, lang),
+  current: !e.end,
+  title: e.title,
+  where: [e.org, e.location].filter(Boolean).join(" · "),
+  highlights: e.highlights,
+}));
+const education = cv.education.map((e) => ({
+  when: formatSpan(e.start, e.end, lang),
+  current: !e.end,
+  title: e.degree,
+  where: [e.institution, e.location].filter(Boolean).join(" · "),
+  highlights: e.highlights,
+}));
+const timelines = [
+  { id: "experience", heading: t("cv.experience"), rows: experience },
+  { id: "education", heading: t("cv.education"), rows: education },
+];
 ---
 
 <BaseLayout
@@ -23,76 +43,92 @@ const url = new URL(localize("/cv", lang), Astro.site);
 >
   <article class="container cv">
     <header class="cv-head">
-      <div>
-        <p class="eyebrow">{cv.role}</p>
-        <h1>{cv.name}</h1>
+      <p class="eyebrow">{cv.role}</p>
+      <h1>{cv.name}</h1>
+      <p class="lede">{cv.profile}</p>
+      <div class="head-row">
         <p class="meta">
-          {cv.location}
+          <span>{cv.location}</span>
           {cv.links.map((l) => (
-            <>
-              {" · "}
-              <a href={l.url}>{l.label}</a>
-            </>
+            <a href={l.url}>{l.label}</a>
           ))}
         </p>
+        <a
+          class="button primary no-print"
+          href={localize("/cv.pdf", lang)}
+          download
+        >
+          {t("cv.download")}
+        </a>
       </div>
-      <a
-        class="button primary no-print"
-        href={localize("/cv.pdf", lang)}
-        download
-      >
-        {t("cv.download")}
-      </a>
     </header>
 
-    <section aria-labelledby="profile">
-      <h2 id="profile">{t("cv.profile")}</h2>
-      <p class="profile">{cv.profile}</p>
-    </section>
+    {timelines.map((tl) => (
+      <section aria-labelledby={tl.id}>
+        <h2 id={tl.id}>{tl.heading}</h2>
+        <ol class="timeline">
+          {tl.rows.map((r) => (
+            <li class:list={{ current: r.current }}>
+              <p class="when">{r.when}</p>
+              <div class="body">
+                <h3>{r.title}</h3>
+                <p class="where">{r.where}</p>
+                {r.highlights.length > 0 && (
+                  <ul class="highlights">
+                    {r.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
 
-    <section aria-labelledby="experience">
-      <h2 id="experience">{t("cv.experience")}</h2>
-      <ol class="entries">
-        {cv.experience.map((e) => (
-          <li>
-            <p class="when">{formatSpan(e.start, e.end, lang)}</p>
-            <div>
-              <h3>
-                {e.title}, <span class="org">{e.org}</span>
-                {e.location && <span class="loc">, {e.location}</span>}
-              </h3>
-              <p>{e.summary}</p>
-            </div>
-          </li>
+    <section aria-labelledby="projects">
+      <h2 id="projects">{t("cv.projects")}</h2>
+      <div class="projects">
+        {cv.projects.map((p) => (
+          <article class="project">
+            <h3>
+              {p.name}
+              {p.subtitle && <span class="subtitle">{p.subtitle}</span>}
+            </h3>
+            <ul class="chips" aria-label={t("cv.stack")}>
+              {p.stack.map((s) => (
+                <li>{s}</li>
+              ))}
+            </ul>
+            <ul class="highlights">
+              {p.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+            {p.url && (
+              <a class="more" href={p.url}>
+                {t("cv.code")} <span aria-hidden="true">→</span>
+              </a>
+            )}
+          </article>
         ))}
-      </ol>
-    </section>
-
-    <section aria-labelledby="education">
-      <h2 id="education">{t("cv.education")}</h2>
-      <ol class="entries">
-        {cv.education.map((e) => (
-          <li>
-            <p class="when">{formatSpan(e.start, e.end, lang)}</p>
-            <div>
-              <h3>
-                {e.degree}, <span class="org">{e.institution}</span>
-                {e.location && <span class="loc">, {e.location}</span>}
-              </h3>
-              {e.details && <p>{e.details}</p>}
-            </div>
-          </li>
-        ))}
-      </ol>
+      </div>
     </section>
 
     <section aria-labelledby="skills">
       <h2 id="skills">{t("cv.skills")}</h2>
-      <dl class="pairs">
+      <dl class="skills">
         {cv.skills.map((s) => (
           <div>
             <dt>{s.group}</dt>
-            <dd>{s.items.join(", ")}</dd>
+            <dd>
+              <ul class="chips">
+                {s.items.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+            </dd>
           </div>
         ))}
       </dl>
@@ -100,26 +136,33 @@ const url = new URL(localize("/cv", lang), Astro.site);
 
     <section aria-labelledby="languages">
       <h2 id="languages">{t("cv.languages")}</h2>
-      <dl class="pairs">
+      <ul class="spoken">
         {cv.languages.map((l) => (
-          <div>
-            <dt>{l.name}</dt>
-            <dd>{l.level}</dd>
-          </div>
+          <li>
+            <strong>{l.name}</strong> <span>{l.level}</span>
+          </li>
         ))}
-      </dl>
+      </ul>
     </section>
 
-    <section aria-labelledby="interests">
-      <h2 id="interests">{t("cv.interests")}</h2>
-      <dl class="pairs">
-        {cv.interests.map((i) => (
-          <div>
-            <dt>{i.label}</dt>
-            <dd>{i.text}</dd>
-          </div>
+    <section aria-labelledby="volunteering">
+      <h2 id="volunteering">{t("cv.volunteering")}</h2>
+      <ol class="timeline">
+        {cv.volunteering.map((v) => (
+          <li class:list={{ current: !v.end }}>
+            <p class="when">{v.start && formatSpan(v.start, v.end, lang)}</p>
+            <div class="body">
+              <h3>{v.title}</h3>
+              {v.org && <p class="where">{v.org}</p>}
+              <p class="text">{v.text}</p>
+            </div>
+          </li>
         ))}
-      </dl>
+      </ol>
+      <p class="interests">
+        <strong>{t("cv.interests")}:</strong>
+        {cv.interests}
+      </p>
     </section>
   </article>
 </BaseLayout>
@@ -128,30 +171,43 @@ const url = new URL(localize("/cv", lang), Astro.site);
   .cv {
     max-width: 52rem;
     padding-top: clamp(2.5rem, 7vw, 4.5rem);
+    padding-bottom: 2rem;
   }
+
+  /* Header: name, then the profile as a lede so the page opens like prose. */
   .cv-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.25rem 2rem;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1rem;
+    padding-bottom: 1.75rem;
     border-bottom: 1px solid var(--border);
   }
-  .cv-head h1 {
-    margin-bottom: 0.4rem;
+  .lede {
+    font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+    line-height: 1.55;
+    max-width: 40ch;
+    margin: 0 0 1.5rem;
+    text-wrap: pretty;
+  }
+  .head-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
   }
   .meta {
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.1rem;
     color: var(--muted);
+    font-size: 0.95rem;
   }
+
   section {
-    margin-top: 2.25rem;
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
   }
   h2 {
     font-size: 1.35rem;
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -166,62 +222,233 @@ const url = new URL(localize("/cv", lang), Astro.site);
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 10'%3E%3Cpath d='M1 5 C 5 0, 9 0, 12 5 S 19 10, 22 5 S 28 0, 31 5' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
       center / contain no-repeat;
   }
-  .profile {
-    margin: 0;
-    max-width: var(--measure);
-  }
-  .entries {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 1.25rem;
-  }
-  .entries li,
-  .pairs > div {
-    display: grid;
-    grid-template-columns: 10rem 1fr;
-    gap: 0.25rem 1.5rem;
-  }
-  .when,
-  dt {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-variant-numeric: tabular-nums;
-    padding-top: 0.1rem;
-  }
   h3 {
     font-family: var(--font-sans);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     font-weight: 650;
     letter-spacing: 0;
     line-height: 1.4;
-    margin: 0 0 0.25rem;
-  }
-  .org {
-    font-weight: 500;
-  }
-  .loc {
-    font-weight: 400;
-    color: var(--muted);
-  }
-  .entries p:not(.when) {
-    margin: 0;
-  }
-  .pairs {
-    margin: 0;
-    display: grid;
-    gap: 0.6rem;
-  }
-  dd {
     margin: 0;
   }
 
+  /* Timeline: dates on the left, a thin rail with a dot per entry. */
+  .timeline {
+    --rail: 10rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline > li {
+    display: grid;
+    grid-template-columns: var(--rail) 1fr;
+    column-gap: 1.75rem;
+  }
+  .when {
+    margin: 0;
+    padding-top: 0.12rem;
+    text-align: right;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .body {
+    position: relative;
+    padding: 0 0 1.75rem 1.5rem;
+    border-left: 2px solid var(--border);
+  }
+  .timeline > li:last-child .body {
+    padding-bottom: 0.25rem;
+    border-left-color: transparent;
+    background: linear-gradient(var(--border), var(--border)) left top / 2px
+      0.75rem no-repeat;
+  }
+  .body::before {
+    content: "";
+    position: absolute;
+    left: calc(-0.4rem - 1px);
+    top: 0.42rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .current .body::before {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .where {
+    margin: 0.1rem 0 0;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+  .text {
+    margin: 0.5rem 0 0;
+  }
+
+  .highlights {
+    margin: 0.6rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+    text-wrap: pretty;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+  .highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.45rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+
+  /* Projects */
+  .projects {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .project {
+    padding: 1.4rem 1.5rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--surface);
+  }
+  .project h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    display: block;
+    margin-top: 0.1rem;
+    font-family: var(--font-sans);
+    font-size: 0.97rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .project .chips {
+    margin-top: 0.75rem;
+  }
+  .more {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .more:hover {
+    text-decoration: underline;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .chips li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 0.1rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+  }
+
+  /* Skills */
+  .skills {
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .skills > div {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    column-gap: 1.75rem;
+    align-items: baseline;
+  }
+  .skills dt {
+    text-align: right;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .skills dd {
+    margin: 0;
+  }
+
+  .spoken {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2.5rem;
+  }
+  .spoken strong {
+    font-weight: 650;
+  }
+  .spoken span {
+    color: var(--muted);
+  }
+
+  .interests {
+    margin: 1.75rem 0 0;
+    color: var(--muted);
+  }
+  .interests strong {
+    color: var(--text);
+    font-weight: 650;
+  }
+
   @media (max-width: 40rem) {
-    .entries li,
-    .pairs > div {
+    /* Rail moves to the whole row; date sits above the title. */
+    .timeline > li {
+      display: block;
+      position: relative;
+      padding: 0 0 1.75rem 1.4rem;
+      border-left: 2px solid var(--border);
+    }
+    .timeline > li:last-child {
+      padding-bottom: 0.25rem;
+      border-left-color: transparent;
+      background: linear-gradient(var(--border), var(--border)) left top / 2px
+        0.75rem no-repeat;
+    }
+    .when {
+      text-align: left;
+      padding: 0 0 0.1rem;
+    }
+    .when:empty {
+      display: none;
+    }
+    .body,
+    .timeline > li:last-child .body {
+      padding: 0;
+      border: 0;
+      background: none;
+      position: static;
+    }
+    .body::before {
+      left: calc(-0.4rem - 1px);
+      top: 0.42rem;
+    }
+    .skills > div {
       grid-template-columns: 1fr;
+      row-gap: 0.4rem;
+    }
+    .skills dt {
+      text-align: left;
+    }
+    .project {
+      padding: 1.2rem 1.1rem 1.1rem;
     }
   }
 
@@ -241,10 +468,13 @@ const url = new URL(localize("/cv", lang), Astro.site);
     }
     section {
       margin-top: 1.25rem;
-      break-inside: avoid-page;
     }
-    .entries li {
+    .timeline > li,
+    .project {
       break-inside: avoid;
+    }
+    .project {
+      background: none;
     }
   }
 </style>
