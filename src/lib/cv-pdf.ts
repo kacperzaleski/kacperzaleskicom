@@ -205,35 +205,68 @@ export function renderCvPdf(
     doc.moveDown(0.32);
   };
 
-  const entry = (
-    when: string,
-    title: string,
-    org: string,
-    loc: string | undefined,
-    text: string | undefined,
-  ) => {
+  const BULLET_INDENT = 9;
+  const bulletW = bodyW - BULLET_INDENT;
+  const bodyText = () => doc.font("body").fontSize(BODY).fillColor(C.text);
+
+  const measureBullets = (items: string[]) => {
+    doc.font("body").fontSize(BODY);
+    return items.reduce(
+      (h, b) => h + doc.heightOfString(b, { width: bulletW, lineGap: 1 }) + 1.5,
+      0,
+    );
+  };
+
+  const drawBullets = (items: string[]) => {
+    for (const b of items) {
+      doc.moveDown(0.12);
+      const y = doc.y;
+      doc
+        .save()
+        .rect(bodyX, y + BODY * 0.62, 4, 1.1)
+        .fill(C.accent)
+        .restore();
+      bodyText().text(b, bodyX + BULLET_INDENT, y, {
+        width: bulletW,
+        lineGap: 1,
+      });
+    }
+  };
+
+  /**
+   * Timeline entry: bold title, muted "where" line (or inline after the
+   * title), optional paragraph and bullets.
+   */
+  const entry = (opts: {
+    when: string;
+    title: string;
+    where?: string | undefined;
+    text?: string | undefined;
+    bullets?: string[];
+    link?: string | undefined;
+  }) => {
+    const { when, title, where, text, bullets = [], link } = opts;
     const heading = () => {
       doc
         .font("bodyBold")
         .fontSize(10.5)
         .fillColor(C.text)
-        .text(`${title}, `, bodyX, doc.y, {
+        .text(title, bodyX, doc.y, {
           width: bodyW,
-          continued: true,
+          continued: !!where,
+          link,
         });
-      doc.font("bodyItalic").text(org, { continued: !!loc });
-      if (loc) doc.font("body").fillColor(C.muted).text(`, ${loc}`);
+      if (where)
+        doc.font("body").fontSize(BODY).fillColor(C.muted).text(`   ${where}`);
     };
     const measure = () => {
       doc.font("bodyBold").fontSize(10.5);
-      let h = doc.heightOfString(`${title}, ${org}${loc ? `, ${loc}` : ""}`, {
-        width: bodyW,
-      });
+      let h = doc.heightOfString(`${title}   ${where ?? ""}`, { width: bodyW });
       if (text) {
         doc.font("body").fontSize(BODY);
         h += doc.heightOfString(text, { width: bodyW, lineGap: 1 }) + 2;
       }
-      return h;
+      return h + measureBullets(bullets);
     };
     row(
       when,
@@ -241,15 +274,9 @@ export function renderCvPdf(
         heading();
         if (text) {
           doc.moveDown(0.15);
-          doc
-            .font("body")
-            .fontSize(BODY)
-            .fillColor(C.text)
-            .text(text, bodyX, doc.y, {
-              width: bodyW,
-              lineGap: 1,
-            });
+          bodyText().text(text, bodyX, doc.y, { width: bodyW, lineGap: 1 });
         }
+        drawBullets(bullets);
       },
       measure,
     );
@@ -289,30 +316,35 @@ export function renderCvPdf(
 
   section(t("cv.experience"));
   for (const e of cv.experience)
-    entry(
-      formatSpan(e.start, e.end, lang),
-      e.title,
-      e.org,
-      e.location,
-      e.summary,
-    );
+    entry({
+      when: formatSpan(e.start, e.end, lang),
+      title: e.title,
+      where: [e.org, e.location].filter(Boolean).join(", "),
+      bullets: e.highlights,
+    });
 
   section(t("cv.education"));
   for (const e of cv.education)
-    entry(
-      formatSpan(e.start, e.end, lang),
-      e.degree,
-      e.institution,
-      e.location,
-      e.details,
-    );
+    entry({
+      when: formatSpan(e.start, e.end, lang),
+      title: e.degree,
+      where: [e.institution, e.location].filter(Boolean).join(", "),
+      bullets: e.highlights,
+    });
+
+  section(t("cv.projects"));
+  for (const p of cv.projects)
+    entry({
+      when: p.stack.join(", "),
+      title: p.subtitle ? `${p.name}: ${p.subtitle}` : p.name,
+      bullets: p.highlights,
+      link: p.url,
+    });
 
   section(t("cv.skills"));
   for (const s of cv.skills) pair(s.group, s.items.join(", "));
-
-  section(t("cv.languages"));
   pair(
-    "",
+    t("cv.languages"),
     cv.languages
       .map(
         (l) => `${l.name} (${lang === "en" ? l.level.toLowerCase() : l.level})`,
@@ -320,8 +352,15 @@ export function renderCvPdf(
       .join("  ·  "),
   );
 
-  section(t("cv.interests"));
-  for (const i of cv.interests) pair(i.label, i.text);
+  section(t("cv.volunteering"));
+  for (const v of cv.volunteering)
+    entry({
+      when: v.start ? formatSpan(v.start, v.end, lang) : "",
+      title: v.title,
+      where: v.org,
+      text: v.text,
+    });
+  pair(t("cv.interests"), cv.interests);
 
   doc.end();
   return done;

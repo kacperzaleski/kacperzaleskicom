@@ -18,27 +18,45 @@ const schema = z.object({
   location: text,
   links: z.array(z.object({ label: z.string(), url: z.url() })),
   profile: text,
-  education: z.array(
-    z.object({
-      ...span,
-      degree: text,
-      institution: text,
-      location: text.optional(),
-      details: text.optional(),
-    }),
-  ),
   experience: z.array(
     z.object({
       ...span,
       title: text,
       org: text,
       location: text.optional(),
-      summary: text,
+      highlights: z.array(text).default([]),
+    }),
+  ),
+  education: z.array(
+    z.object({
+      ...span,
+      degree: text,
+      institution: text,
+      location: text.optional(),
+      highlights: z.array(text).default([]),
+    }),
+  ),
+  projects: z.array(
+    z.object({
+      name: text,
+      subtitle: text.optional(),
+      stack: z.array(text),
+      url: z.url().optional(),
+      highlights: z.array(text).default([]),
     }),
   ),
   skills: z.array(z.object({ group: text, items: z.array(text) })),
   languages: z.array(z.object({ name: text, level: text })),
-  interests: z.array(z.object({ label: text, text })),
+  volunteering: z.array(
+    z.object({
+      start: date.optional(),
+      end: date.optional(),
+      title: text,
+      org: text.optional(),
+      text,
+    }),
+  ),
+  interests: text,
 });
 
 const source = schema.parse(parse(raw));
