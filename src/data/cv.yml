@@ -255,8 +255,9 @@ volunteering:
       de: >-
         Hauptansprechperson für AI-Studierende am JKU-Campus Wien:
         Studienberatung und Veranstaltungen (AI Vienna Orientation Days).
-  - title: { en: Scouts, de: Pfadfinder }
-    org: { en: "Vienna, 15 years", de: "Wien, seit 15 Jahren" }
+  - start: "2011"
+    title: { en: Scouts, de: Pfadfinder }
+    org: { en: Vienna, de: Wien }
     text:
       en: >-
         Youth mentoring, group website and Microsoft 365 admin, contributions
